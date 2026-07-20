@@ -39,3 +39,14 @@
   - gestion des baremes de frais pour chaque operateur
   - situation gain via frais
   - situation des comptes clients
+`NB :` La v1 était déja finie mais on a oublié de chequer la liste des tâches.
+
+# REPARTITION DES TACHES V2 [Alexandre]
+  # Coté opérateur
+- Séparation du préfixe et du numéro durant le login. 
+- Commission en % pour les autres operateurs.
+- Page  “Situation gain via les différents frais” 
+- Montant à envoyer à chaque opérateur.
+  # Coté client 
+- Frais de retrait durant l'envoi [ok]
+- Envoi mulitple vers plusieurs numéros

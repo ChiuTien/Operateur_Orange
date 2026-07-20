@@ -17,7 +17,10 @@ class OperateurController extends BaseController {
         $this->prefixe = new Prefixe();
     }
 
-    public function getData() {
+    /* 
+        GESTION DES BAREMES
+    */
+    public function getBaremeData() {
         $donnees = [
             'min'         => $this->request->getPost('min'),
             'max'         => $this->request->getPost('max'),
@@ -91,5 +94,78 @@ class OperateurController extends BaseController {
 
         $this->bareme->delete($id);
         return redirect()->back()->with('success', 'Tranche supprimée avec succès.');
+    }
+
+    /* 
+        GESTION DES PREFIXES
+    */
+    public function getPrefixData() {
+        $donnees = [
+            'sequence'    => trim($this->request->getPost('sequence')),
+            'idOperateur' => $this->request->getPost('idOperateur')
+        ];
+
+        if (empty($donnees['sequence']) || empty($donnees['idOperateur'])) {
+            return redirect()->back()->with('error', 'La séquence du préfixe et l\'opérateur sont requis.');
+        }
+
+        return $donnees;
+    }
+
+    public function getPrefixesParOperateur($idOperateur) {
+        $prefixes = $this->prefixe->where('idOperateur', $idOperateur)->findAll();
+
+        return view("test");
+    }
+
+    public function createPrefixe() {
+        $donnees = $this->getPrefixeData();
+
+        if (!is_array($donnees)) {
+            return $donnees;
+        }
+
+        $existe = $this->prefixe->where('sequence', $donnees['sequence'])->first();
+        if ($existe) {
+            return redirect()->back()->with('error', 'Ce préfixe existe déjà.');
+        }
+
+        $this->prefixe->save($donnees);
+        return redirect()->back()->with('success', 'Préfixe ajouté avec succès !');
+    }
+
+    public function updatePrefixe($id) {
+        $prefixe = $this->prefixe->find($id);
+        if (!$prefixe) {
+            return redirect()->back()->with('error', 'Ce préfixe n\'existe pas.');
+        }
+
+        $donnees = $this->getPrefixeData();
+        if (!is_array($donnees)) {
+            return $donnees;
+        }
+
+        $existe = $this->prefixe->where('sequence', $donnees['sequence'])
+                                ->where('id !=', $id)
+                                ->first();
+        if ($existe) {
+            return redirect()->back()->with('error', 'Ce préfixe est déjà utilisé par un autre opérateur.');
+        }
+
+        $donnees['id'] = $id;
+
+        $this->prefixe->save($donnees);
+        return redirect()->back()->with('success', 'Préfixe mis à jour avec succès.');
+    }
+
+    public function deletePrefixe($id) {
+        $prefixe = $this->prefixe->find($id);
+
+        if (!$prefixe) {
+            return redirect()->back()->with('error', 'Ce préfixe n\'existe pas.');
+        }
+
+        $this->prefixe->delete($id);
+        return redirect()->back()->with('success', 'Préfixe supprimé avec succès.');
     }
 }

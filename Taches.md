@@ -6,7 +6,7 @@
   - Userflow: login [ok]
   - Userflow: accueil [ok]
   - Interface: login [ok]
-  - Interface: accueil 
+  - Interface: accueil [ok]
   - Controllers: OprationController
   - Routes 
 - MCD & Back

@@ -11,9 +11,9 @@
 
     <!-- Faire un depot -->
     <h3>Combien allez vous versez ?</h3>
-    <form action="" method="post">
+    <form action="/depot" method="post">
         <label for="montant">Le montant à verser</label><br>
-        <input type="number" placeholder="15000"><br>
+        <input type="number" name="montant" placeholder="15000"><br>
         <button type="submit"> Valider le depot </button>
     </form>
 

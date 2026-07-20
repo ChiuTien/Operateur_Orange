@@ -7,17 +7,20 @@ use CodeIgniter\HTTP\ResponseInterface;
 
 use App\Models\Mouvement;
 use App\Models\Bareme;
+use App\Models\Numero; // 1. Ne pas oublier d'importer le modèle Numero
 
 class MouvementController extends BaseController {
     protected $mouvement;
     protected $bareme;
+    protected $numeroModel; // Variable pour le modèle Numero
 
     public function __construct() {
         $this->mouvement = new Mouvement();
         $this->bareme = new Bareme();
+        $this->numeroModel = new Numero(); // 2. Instanciation dans le constructeur
     }
 
-    //Sous-Methodes
+    // --- Sous-Méthodes ---
     public function getDataDepotRetrait() {
         $idNum = session()->get('id_numero');
         $montant = $this->request->getPost('montant');
@@ -29,19 +32,19 @@ class MouvementController extends BaseController {
             return redirect()->to('/accueil')->with('error', 'Veuillez insérer un montant valide.');
         }
 
-        $data = [
+        return [
             "idNum" => $idNum,
             "montant" => $montant
         ];
-        return $data;
     }
+
     public function deductionFrais($montant) {
         $ligne = $this->bareme->where("{$montant} BETWEEN min AND max")->first();
         $frais = $ligne['frais'] ?? 0;
         return $montant + $frais;
     }
-    public function getSolde($idNum) {
 
+    public function getSolde($idNum) {
         $resultat = $this->mouvement->select("
             SUM(
                 CASE 
@@ -53,7 +56,7 @@ class MouvementController extends BaseController {
         return $resultat['solde'] ?? 0;
     }
 
-    //Methodes principaux
+    // --- Méthodes Principales ---
     public function depot() {
         $data = $this->getDataDepotRetrait();
 
@@ -99,5 +102,49 @@ class MouvementController extends BaseController {
         ];
         $this->mouvement->save($donnee);
         return redirect()->to("/accueil");
+    }
+
+    public function transfert() {
+        $data = $this->getDataDepotRetrait();
+        if (!is_array($data)) {
+            return $data;
+        }
+
+        $idExpediteur = $data['idNum'];
+        $montantInitial = $data['montant'];
+        
+        $numSaisi = $this->request->getPost('numero');
+        $beneficiaireData = $this->numeroModel->findBySequence($numSaisi); 
+        
+        $idBeneficiaire = $beneficiaireData['id'] ?? null;
+        if (!$idBeneficiaire || $idExpediteur == $idBeneficiaire) {
+            return redirect()->to('/accueil')->with('error', 'Bénéficiaire invalide.');
+        }
+
+        $montantAvecFrais = $this->deductionFrais($montantInitial);
+        $solde = $this->getSolde($idExpediteur);
+
+        if ($solde < $montantAvecFrais) {
+            $necessaire = $montantAvecFrais - $solde;
+            return redirect()->to('/accueil')->with('error', "Solde insuffisant. Il vous manque {$necessaire} Ar.");
+        }
+
+        $donneeExpediteur = [
+            "idN1"        => $idExpediteur,
+            "idN2"        => $idBeneficiaire, 
+            "idOperation" => 3, 
+            "argent"      => $montantAvecFrais
+        ];
+        $this->mouvement->save($donneeExpediteur);
+
+        $donneeBeneficiaire = [
+            "idN1"        => $idBeneficiaire,
+            "idN2"        => $idExpediteur,
+            "idOperation" => 1, 
+            "argent"      => $montantInitial
+        ];
+        $this->mouvement->save($donneeBeneficiaire);
+
+        return redirect()->to("/accueil")->with('success', 'Transfert envoyé avec succès !');
     }
 }

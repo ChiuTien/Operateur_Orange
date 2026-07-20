@@ -7,6 +7,7 @@
   - Userflow: accueil [ok]
   - Interface: login [ok]
   - Interface: accueil [ok]
+  - Voir Solde [ok]
 - MCD & Back [Mandresy]
   - Connexion Base de donnee [ok]
   - Tables: prefix, numero, num_prefix, operation, bareme, mouvement, client, num_client [ok]

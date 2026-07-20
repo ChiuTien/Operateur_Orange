@@ -113,12 +113,12 @@ class MouvementController extends BaseController {
         $idExpediteur = $data['idNum'];
         $montantInitial = $data['montant'];
         
-        $numSaisi = $this->request->getPost('numero');
+        $numSaisi = $this->request->getPost('beneficiaire');
         $beneficiaireData = $this->numeroModel->findBySequence($numSaisi); 
         
-        $idBeneficiaire = $beneficiaireData['id'] ?? null;
+        $idBeneficiaire = $beneficiaireData['id'];
         if (!$idBeneficiaire || $idExpediteur == $idBeneficiaire) {
-            return redirect()->to('/accueil')->with('error', 'Bénéficiaire invalide.');
+            return redirect()->to('/accueil')->with('error', "Bénéficiaire invalide.{$idBeneficiaire}");
         }
 
         $montantAvecFrais = $this->deductionFrais($montantInitial);

@@ -59,9 +59,12 @@ CREATE TABLE IF NOT EXISTS mouvement (
     idN1            INTEGER NOT NULL,
     idN2            INTEGER,
     idOperation     INTEGER NOT NULL,
+    idOperateur     INTEGER,
     argent          REAL NOT NULL,
     dateOperation   TEXT NOT NULL DEFAULT (datetime('now', 'localtime')),
+
     FOREIGN KEY (idN1) REFERENCES numero(id) ON DELETE CASCADE,
     FOREIGN KEY (idN2) REFERENCES numero(id) ON DELETE SET NULL,
+    FOREIGN KEY (idOperateur) REFERENCES operateur(id) ON DELETE RESTRICT,
     FOREIGN KEY (idOperation) REFERENCES operation(id) ON DELETE RESTRICT
 );

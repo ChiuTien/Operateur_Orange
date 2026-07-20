@@ -15,6 +15,7 @@ class Mouvement extends Model
     protected $allowedFields    = [
         "idN1",
         "idN2",
+        "idOperateur",
         "idOperation",
         "argent",
         "dateOperation"

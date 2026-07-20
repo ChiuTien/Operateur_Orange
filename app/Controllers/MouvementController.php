@@ -80,6 +80,7 @@ class MouvementController extends BaseController {
 
         $donnee = [
             "idN1" => $idNum,
+            "idOperateur" => session()->get('id_operateur'),
             "idOperation" => 1,
             "argent" => $montant
         ];
@@ -109,6 +110,7 @@ class MouvementController extends BaseController {
 
         $donnee = [
             "idN1" => $idNum,
+            "idOperateur" => session()->get('id_operateur'),
             "idOperation" => 2,
             "argent" => $montantAvecFrais
         ];
@@ -148,6 +150,7 @@ class MouvementController extends BaseController {
         $donneeExpediteur = [
             "idN1"        => $idExpediteur,
             "idN2"        => $idBeneficiaire, 
+            "idOperateur" => session()->get('id_operateur'),
             "idOperation" => 3, 
             "argent"      => $montantAvecFrais
         ];
@@ -156,6 +159,7 @@ class MouvementController extends BaseController {
         $donneeBeneficiaire = [
             "idN1"        => $idBeneficiaire,
             "idN2"        => $idExpediteur,
+            "idOperateur" => $beneficiaireData['idOperateur'],
             "idOperation" => 1, 
             "argent"      => $montantInitial
         ];
@@ -193,5 +197,144 @@ class MouvementController extends BaseController {
             'mouvements'    => $listeMouvements,
             'filtreActuel'  => $filtre
         ]);
+    }
+    public function situationGainsGlobalises() {
+        $gains = $this->mouvement
+            ->select("
+                mouvement.idOperateur,
+                SUM(bareme.frais) AS total_gains
+            ")
+            ->join('bareme', '
+                bareme.idOperateur = mouvement.idOperateur 
+                AND bareme.idOperation = mouvement.idOperation 
+                AND mouvement.argent BETWEEN bareme.min AND (bareme.max + bareme.frais)
+            ', 'inner')
+            ->whereIn('mouvement.idOperation', [2, 3])
+            ->groupBy('mouvement.idOperateur')
+            ->findAll();
+
+        return $gains; 
+    }
+/**
+ * Effectue un envoi multiple en divisant le montant total entre plusieurs numéros
+ * Strictement limité aux numéros du même opérateur
+ */
+    public function transfertMultiple() {
+        // 1. Récupération des données du formulaire
+        $montantTotal = (float) $this->request->getPost('montant_total');
+        $sequencesBeneficiaires = $this->request->getPost('numeros'); // Saisi sous forme de tableau ou chaîne séparée par des virgules
+    
+        if (is_string($sequencesBeneficiaires)) {
+            $sequencesBeneficiaires = array_filter(array_map('trim', explode(',', $sequencesBeneficiaires)));
+        }
+
+        $nbBeneficiaires = count($sequencesBeneficiaires);
+        if ($nbBeneficiaires === 0 || $montantTotal <= 0) {
+            return redirect()->back()->with('error', 'Données d\'envoi invalides.');
+        }
+
+        // 2. Identification de l'expéditeur et de son opérateur
+        $idOperateurExpediteur = session()->get('id_operateur');
+        // On suppose que le numéro connecté est stocké en session (ex: id_numero)
+        $idExpediteur = session()->get('id_numero'); 
+
+        // Calcul du montant net par bénéficiaire
+        $montantUnitaireNet = $montantTotal / $nbBeneficiaires;
+
+        // 3. Vérification des bénéficiaires (existence et même opérateur)
+        $idBeneficiairesValides = [];
+        foreach ($sequencesBeneficiaires as $sequence) {
+            $beneficiaire = $this->numeroModel
+                ->where('sequence', $sequence)
+                ->first();
+
+            if (!$beneficiaire) {
+                return redirect()->back()->with('error', "Le numéro {$sequence} n'existe pas.");
+            }
+
+            if ((int)$beneficiaire['idOperateur'] !== (int)$idOperateurExpediteur) {
+                return redirect()->back()->with('error', "Le numéro {$sequence} n'appartient pas au même opérateur.");
+            }
+
+            $idBeneficiairesValides[] = [
+                'id' => $beneficiaire['id'],
+                'sequence' => $sequence
+            ];
+        }
+
+        // 4. Recherche du barème pour l'opération de transfert (idOperation = 3)
+        // On cherche les frais correspondants au montant unitaire net envoyé
+        $tranche = $this->baremeModel
+            ->where('idOperateur', $idOperateurExpediteur)
+            ->where('idOperation', 3)
+            ->where('min <=', $montantUnitaireNet)
+            ->where('max >=', $montantUnitaireNet)
+            ->first();
+
+        if (!$tranche) {
+            return redirect()->back()->with('error', 'Aucun barème trouvé pour ce montant unitaire.');
+        }
+
+        $fraisUnitaires = (float) $tranche['frais'];
+        $coutUnitaireTotal = $montantUnitaireNet + $fraisUnitaires;
+        $debitTotalExpediteur = $coutUnitaireTotal * $nbBeneficiaires;
+
+        // 5. Vérification du solde de l'expéditeur
+        // (En utilisant ta logique existante basée sur la somme des mouvements passés)
+        $soldeActuel = $this->getSoldeDuNumero($idExpediteur); 
+        if ($soldeActuel < $debitTotalExpediteur) {
+            return redirect()->back()->with('error', "Solde insuffisant. Il vous faut au total {$debitTotalExpediteur} Ar (frais inclus).");
+        }
+
+        // 6. Enregistrement des mouvements en Base de Données
+        // Idéalement à mettre dans une transaction SQLite/MySQL pour éviter les coupures partielles
+        $db = \Config\Database::connect();
+        $db->transStart();
+
+        foreach ($idBeneficiairesValides as $benef) {
+            // A. Ligne de Débit pour l'expéditeur (idOperation = 3)
+            // On enregistre le montant brut (net + frais) comme convenu précédemment
+            $this->mouvementModel->save([
+                "idN1"          => $idExpediteur,
+                "idN2"          => $benef['id'],
+                "idOperateur"   => $idOperateurExpediteur,
+                "idOperation"   => 3,
+                "argent"        => $coutUnitaireTotal
+            ]);
+
+            // B. Ligne de Crédit pour le bénéficiaire (idOperation = 1)
+            // On enregistre le montant net reçu (sans les frais)
+            $this->mouvementModel->save([
+                "idN1"          => $benef['id'],
+                "idN2"          => $idExpediteur,
+                "idOperateur"   => $idOperateurExpediteur, // Même opérateur validé plus haut
+                "idOperation"   => 1,
+                "argent"        => $montantUnitaireNet
+            ]);
+        }
+
+        $db->transComplete();
+
+        if ($db->transStatus() === false) {
+            return redirect()->back()->with('error', 'Une erreur est survenue lors du transfert multiple.');
+        }
+
+        return redirect()->to('/dashboard')->with('success', "Envoi multiple réussi ! Chaque numéro a reçu {$montantUnitaireNet} Ar.");
+    }
+
+    /**
+    * Fonction interne d'aide pour récupérer le solde d'un numéro spécifique
+    */
+    private function getSoldeDuNumero($idNumero) {
+        $mouvements = $this->mouvementModel->where('idN1', $idNumero)->findAll();
+        $solde = 0;
+        foreach ($mouvements as $m) {
+            if (in_array($m['idOperation'], [2, 3])) {
+                $solde -= $m['argent'];
+            } else {
+                $solde += $m['argent'];
+            }
+        }
+        return $solde;
     }
 }

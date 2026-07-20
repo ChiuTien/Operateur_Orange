@@ -38,12 +38,21 @@ class MouvementController extends BaseController {
         ];
     }
 
-    public function deductionFrais($montant) {
-        $ligne = $this->bareme->where("{$montant} BETWEEN min AND max")->first();
-        $frais = $ligne['frais'] ?? 0;
+    public function deductionFrais($montant, $idOperation) {
+        $idOperateur = session()->get('id_operateur');
+        
+        if (!$idOperateur) {
+            return $montant;
+        }
+
+        $ligne = $this->bareme->where('idOperateur', $idOperateur)
+                             ->where('idOperation', $idOperation)
+                             ->where("{$montant} BETWEEN min AND max")
+                             ->first();
+
+        $frais = $ligne['frais'] ?? 0;        
         return $montant + $frais;
     }
-
     public function getSolde($idNum) {
         $resultat = $this->mouvement->select("
             SUM(
@@ -67,6 +76,8 @@ class MouvementController extends BaseController {
         $idNum = $data['idNum'];
         $montant = $data['montant'];
 
+        $montant = $this->deductionFrais($montant, 1);
+
         $donnee = [
             "idN1" => $idNum,
             "idOperation" => 1,
@@ -85,20 +96,21 @@ class MouvementController extends BaseController {
         }
 
         $idNum = $data['idNum'];
-        $montant = $data['montant'];
+        $montantInitial = $data['montant'];
 
         $solde = $this->getSolde($idNum);
-        $montant = $this->deductionFrais($montant);
+        
+        $montantAvecFrais = $this->deductionFrais($montantInitial, 2);
 
-        if($solde < $montant) {
-            $necessaire = $montant - $solde;
+        if ($solde < $montantAvecFrais) {
+            $necessaire = $montantAvecFrais - $solde;
             return redirect()->to('/accueil')->with('error', "Solde insuffisant. Il vous manque {$necessaire} Ar pour couvrir le retrait et ses frais.");
         } 
 
         $donnee = [
             "idN1" => $idNum,
             "idOperation" => 2,
-            "argent" => $montant
+            "argent" => $montantAvecFrais
         ];
         $this->mouvement->save($donnee);
         return redirect()->to("/accueil");
@@ -116,12 +128,16 @@ class MouvementController extends BaseController {
         $numSaisi = $this->request->getPost('beneficiaire');
         $beneficiaireData = $this->numeroModel->findBySequence($numSaisi); 
         
-        $idBeneficiaire = $beneficiaireData['id'];
-        if (!$idBeneficiaire || $idExpediteur == $idBeneficiaire) {
-            return redirect()->to('/accueil')->with('error', "Bénéficiaire invalide.{$idBeneficiaire}");
+        if (!$beneficiaireData) {
+            return redirect()->to('/accueil')->with('error', "Bénéficiaire introuvable.");
         }
 
-        $montantAvecFrais = $this->deductionFrais($montantInitial);
+        $idBeneficiaire = $beneficiaireData['id'];
+        if ($idExpediteur == $idBeneficiaire) {
+            return redirect()->to('/accueil')->with('error', "Vous ne pouvez pas vous envoyer de l'argent à vous-même.");
+        }
+
+        $montantAvecFrais = $this->deductionFrais($montantInitial, 3);
         $solde = $this->getSolde($idExpediteur);
 
         if ($solde < $montantAvecFrais) {
@@ -147,6 +163,7 @@ class MouvementController extends BaseController {
 
         return redirect()->to("/accueil")->with('success', 'Transfert envoyé avec succès !');
     }
+
     public function historique() {
         $idNum = session()->get('id_numero');
         if (!$idNum) {
@@ -154,7 +171,6 @@ class MouvementController extends BaseController {
         }
 
         $filtre = $this->request->getPost('filtre') ?? 'tout';
-
         $query = $this->mouvement->where('idN1', $idNum);
 
         switch ($filtre) {
@@ -167,16 +183,15 @@ class MouvementController extends BaseController {
             case 'transfert':
                 $query->where('idOperation', 3);
                 break;
-            case 'tout':
-                default:
+            default:
                 break;
         }
 
-    $listeMouvements = $query->orderBy('id', 'DESC')->findAll();
+        $listeMouvements = $query->orderBy('id', 'DESC')->findAll();
 
-    return view('mouvements/historique_vue', [
-        'mouvements'    => $listeMouvements,
-        'filtreActuel'  => $filtre
-    ]);
-}
+        return view('mouvements/historique_vue', [
+            'mouvements'    => $listeMouvements,
+            'filtreActuel'  => $filtre
+        ]);
+    }
 }

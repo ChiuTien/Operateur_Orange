@@ -7,12 +7,12 @@
 </head>
 <body>
     <h2>Veuillez taper vos identifiants : </h2>
-    <form action="" method="post">
+    <form action="login/auth" method="post">
         <label for="numero">Taper votre numero</label><br>
-        <input type="text"><br>
+        <input type="text" name="numero" required><br>
         <small>0334621231</small><br>
         <label for="mdp">Taper votre mot de passe</label><br>
-        <input type="text"><br>
+        <input type="text" name="mdp" required><br>
         <small>123456</small><br>
         <button type="submit"> Connexion </button>
     </form>

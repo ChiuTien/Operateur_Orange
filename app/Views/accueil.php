@@ -15,6 +15,7 @@
     <!-- Voir solde -->
     <strong>Votre solde actuel :</strong>
     <span><?= $solde ?></span>
+    
     <!-- Faire un depot -->
     <h3>Combien allez vous versez ?</h3>
     <form action="/depot" method="post">

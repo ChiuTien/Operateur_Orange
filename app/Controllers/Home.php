@@ -8,6 +8,11 @@ class Home extends BaseController
 {
     protected $mouvementController;
 
+    public function __construct()
+    {
+        $this->mouvementController = new MouvementController();
+    }
+
     public function index(): string
     {
         return view('login');

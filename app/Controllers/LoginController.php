@@ -62,7 +62,7 @@ class LoginController extends BaseController
             $session->set($sessionData);
 
             // Redirection vers le tableau de bord ou l'adresse souhaitée
-            return redirect()->to('/operator/listOperation'); 
+            return redirect()->to('/operation'); 
         } else {
             // 8. Gestion de l'erreur si les identifiants sont incorrects
             $session->setFlashdata('error', 'Nom ou mot de passe incorrect.');

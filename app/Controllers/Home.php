@@ -31,7 +31,7 @@ class Home extends BaseController
     }
 
     public function listOperation() {
-        return view('listOperation');
+        return view('operator/listOperation');
     }
 
     public function accueil()

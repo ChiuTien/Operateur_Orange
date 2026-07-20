@@ -35,7 +35,7 @@
   - operateur [ok]
   - bareme [ok]
 - Rajout des methodes [Mandresy]
-  - modification des prefixes pour chaque operateur
+  - modification des prefixes pour chaque operateur [ok]
   - gestion des baremes de frais pour chaque operateur [ok]
   - situation gain via frais
   - situation des comptes clients

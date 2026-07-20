@@ -34,6 +34,10 @@ class Home extends BaseController
         return view('operator/listOperation');
     }
 
+    public function listPrefixe() {
+        return view('operator/listPrefixe');
+    }
+
     public function accueil()
     {
         $idNum = session()->get('id_numero');

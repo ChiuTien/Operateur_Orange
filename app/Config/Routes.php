@@ -12,6 +12,7 @@ $routes->get('/client', 'Home::client');
 $routes->get('/accueil', 'Home::accueil');
 $routes->get('/operator', 'Home::operator');
 $routes->get('/operation', 'Home::listOperation');
+$routes->get('/prefixe', 'Home::listPrefixe');
 
 
 $routes->post('/login/auth', 'LoginController::auth');

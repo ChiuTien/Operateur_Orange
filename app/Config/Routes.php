@@ -18,3 +18,6 @@ $routes->post('/depot', 'MouvementController::depot');
 
     // Retrait 
 $routes->post('/retrait', 'MouvementController::retrait');
+
+    // Transfert
+$routes->post('/transfert', 'MouvementController::transfert');

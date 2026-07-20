@@ -13,11 +13,11 @@ class Home extends BaseController
         return view('login');
     }
 
-    public function accueil(): string
+    public function accueil()
     {
         $idNum = session()->get('id_numero');
 
-        if (!$idNUm) {
+        if (!$idNum) {
             return redirect()->to('/')->with('error', 'Veuillez vous connectez');
         }
 

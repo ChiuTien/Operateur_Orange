@@ -45,4 +45,8 @@ class Numero extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+    public function findBySequence($sequence) {
+        return $this->where('sequence', $sequence)->first();
+    }
 }

@@ -7,15 +7,24 @@
   - Userflow: accueil [ok]
   - Interface: login [ok]
   - Interface: accueil [ok]
+    - Formulaire : 
+      - depot [ok]
+      - retrait [ok]
+      - transfert [ok]
+      - historique [ok]
+    - Affichage solde [ok]
   - Voir Solde [ok]
 - MCD & Back [Mandresy]
   - Connexion Base de donnee [ok]
   - Tables: prefix, numero, num_prefix, operation, bareme, mouvement, client, num_client [ok]
   - Models: Client, Operation, Mouvement, Prefix, NumPrefix, Numero, NumClient, Bareme [ok]
-- Controller [Mandresy & Alexandre]
-  - MouvementController
+- Controller [Mandresy]
+  - MouvementController [ok]
     - depot() [ok]
     - getSolde() [ok]
     - deductionFrais [ok]
     - retrait() [ok]
-    - transfert()
+    - transfert() [ok]
+    - historique() [ok]
+
+`NB :` La v1 était déja finie mais on a oublié de chequer la liste des tâches.

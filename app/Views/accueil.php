@@ -13,7 +13,7 @@
     <h2>C'est un plaisir de vous revoir.</h2>
     
     <!-- Voir solde -->
-    <strong>Votre solde actuel :</strong>
+    <h3><strong>Votre solde actuel :</strong></h3>
     <span><?= $solde ?></span>
     
     <!-- Faire un depot -->
@@ -25,6 +25,12 @@
     </form>
 
     <!-- Faire un retrait -->
+    <h3>Combien allez vous retirez ?</h3>
+    <form action="/retrait" method="post">
+        <label for="montant">Le montant à retirer</label><br>
+        <input type="number" name="montant" placeholder="15000"><br>
+        <button type="submit"> Valider le retrait </button>
+    </form>
 
     <!-- Faire un transfert -->
 

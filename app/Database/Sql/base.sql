@@ -36,8 +36,8 @@ CREATE TABLE IF NOT EXISTS num_client (
 
 -- Table: operation
 CREATE TABLE IF NOT EXISTS operation (
-    id      INTEGER PRIMARY KEY AUTOINCREMENT,
-    libelle TEXT NOT NULL UNIQUE
+    id          INTEGER PRIMARY KEY AUTOINCREMENT,
+    libelle     TEXT NOT NULL UNIQUE
 );
 
 -- Table: bareme (Améliorée : dépend de l'opération et de l'opérateur)

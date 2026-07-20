@@ -13,9 +13,13 @@ class Home extends BaseController
         $this->mouvementController = new MouvementController();
     }
 
-    public function index(): string
+    public function client(): string
     {
         return view('login');
+    }
+
+    public function index() {
+        return view('loginMain');
     }
 
     public function operator() {

@@ -168,4 +168,32 @@ class OperateurController extends BaseController {
         $this->prefixe->delete($id);
         return redirect()->back()->with('success', 'Préfixe supprimé avec succès.');
     }
+
+    /*
+        GESTION DES CLIENTS
+    */
+    public function listeComptesEtSoldes() {
+        $listeComptes = $this->numeroModel
+            ->select("
+                numero.id, 
+                numero.sequence AS numero_telephone,
+                numero.idOperateur,
+                COALESCE(
+                    SUM(
+                        CASE 
+                            WHEN mouvement.idOperation IN (2, 3) THEN -mouvement.argent
+                            ELSE mouvement.argent                              
+                        END
+                    ), 0
+                ) AS solde_actuel
+            ")
+            ->join('mouvement', 'mouvement.idN1 = numero.id', 'left')
+            ->groupBy('numero.id')
+            ->orderBy('numero.sequence', 'ASC')
+            ->findAll();
+
+        return view('admin/comptes_vue', [
+            'comptes' => $listeComptes
+        ]);
+    }
 }

@@ -15,5 +15,6 @@
   - MouvementController
     - depot() [ok]
     - getSolde() [ok]
-    - retrait()
+    - deductionFrais [ok]
+    - retrait() [ok]
     - transfert()

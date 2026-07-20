@@ -384,3 +384,87 @@ DEBUG - 2026-07-20 07:51:14 --> Session: Class initialized using 'CodeIgniter\Se
 DEBUG - 2026-07-20 07:51:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 DEBUG - 2026-07-20 07:51:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 >>>>>>> b87361103fb804f843c02acf9faae2ac0ece883d
+CRITICAL - 2026-07-20 08:05:06 --> ArgumentCountError: Too few arguments to function App\Controllers\MouvementController::depot(), 0 passed in /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/CodeIgniter.php on line 951 and exactly 2 expected
+[Method: POST, Route: depot]
+in APPPATH/Controllers/MouvementController.php on line 37.
+ 1 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\MouvementController->depot()
+ 2 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+ 3 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+ 4 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+ 6 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+ 7 SYSTEMPATH/rewrite.php(44): require_once('/home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/public/index.php')
+DEBUG - 2026-07-20 08:06:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2026-07-20 08:06:46 --> FOREIGN KEY constraint failed
+in SYSTEMPATH/Database/SQLite3/Connection.php on line 163.
+ 1 SYSTEMPATH/Database/SQLite3/Connection.php(163): SQLite3->exec()
+ 2 SYSTEMPATH/Database/BaseConnection.php(910): CodeIgniter\Database\SQLite3\Connection->execute()
+ 3 SYSTEMPATH/Database/BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery()
+ 4 SYSTEMPATH/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+ 5 SYSTEMPATH/Model.php(355): CodeIgniter\Database\BaseBuilder->insert()
+ 6 SYSTEMPATH/BaseModel.php(899): CodeIgniter\Model->doInsert()
+ 7 SYSTEMPATH/Model.php(668): CodeIgniter\BaseModel->insert()
+ 8 SYSTEMPATH/BaseModel.php(752): CodeIgniter\Model->insert()
+ 9 APPPATH/Controllers/MouvementController.php(46): CodeIgniter\BaseModel->save()
+10 APPPATH/Controllers/MouvementController.php(34): App\Controllers\MouvementController->depot()
+11 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\MouvementController->deposer()
+12 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+13 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+14 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+15 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+16 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+17 SYSTEMPATH/rewrite.php(44): require_once('/home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/public/index.php')
+CRITICAL - 2026-07-20 08:06:46 --> CodeIgniter\Database\Exceptions\DatabaseException: FOREIGN KEY constraint failed
+[Method: POST, Route: depot]
+in SYSTEMPATH/Database/BaseConnection.php on line 865.
+ 1 SYSTEMPATH/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+ 2 SYSTEMPATH/Model.php(355): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH/BaseModel.php(899): CodeIgniter\Model->doInsert()
+ 4 SYSTEMPATH/Model.php(668): CodeIgniter\BaseModel->insert()
+ 5 SYSTEMPATH/BaseModel.php(752): CodeIgniter\Model->insert()
+ 6 APPPATH/Controllers/MouvementController.php(46): CodeIgniter\BaseModel->save()
+ 7 APPPATH/Controllers/MouvementController.php(34): App\Controllers\MouvementController->depot()
+ 8 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\MouvementController->deposer()
+ 9 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+10 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+11 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+13 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+14 SYSTEMPATH/rewrite.php(44): require_once('/home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/public/index.php')
+CRITICAL - 2026-07-20 08:06:46 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: FOREIGN KEY constraint failed
+in SYSTEMPATH/Database/SQLite3/Connection.php on line 174.
+ 1 SYSTEMPATH/Database/BaseConnection.php(910): CodeIgniter\Database\SQLite3\Connection->execute()
+ 2 SYSTEMPATH/Database/BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery()
+ 3 SYSTEMPATH/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+ 4 SYSTEMPATH/Model.php(355): CodeIgniter\Database\BaseBuilder->insert()
+ 5 SYSTEMPATH/BaseModel.php(899): CodeIgniter\Model->doInsert()
+ 6 SYSTEMPATH/Model.php(668): CodeIgniter\BaseModel->insert()
+ 7 SYSTEMPATH/BaseModel.php(752): CodeIgniter\Model->insert()
+ 8 APPPATH/Controllers/MouvementController.php(46): CodeIgniter\BaseModel->save()
+ 9 APPPATH/Controllers/MouvementController.php(34): App\Controllers\MouvementController->depot()
+10 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\MouvementController->deposer()
+11 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+12 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+13 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+14 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+15 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+16 SYSTEMPATH/rewrite.php(44): require_once('/home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/public/index.php')
+CRITICAL - 2026-07-20 08:06:46 --> [Caused by] SQLite3Exception: FOREIGN KEY constraint failed
+in SYSTEMPATH/Database/SQLite3/Connection.php on line 163.
+ 1 SYSTEMPATH/Database/SQLite3/Connection.php(163): SQLite3->exec()
+ 2 SYSTEMPATH/Database/BaseConnection.php(910): CodeIgniter\Database\SQLite3\Connection->execute()
+ 3 SYSTEMPATH/Database/BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery()
+ 4 SYSTEMPATH/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+ 5 SYSTEMPATH/Model.php(355): CodeIgniter\Database\BaseBuilder->insert()
+ 6 SYSTEMPATH/BaseModel.php(899): CodeIgniter\Model->doInsert()
+ 7 SYSTEMPATH/Model.php(668): CodeIgniter\BaseModel->insert()
+ 8 SYSTEMPATH/BaseModel.php(752): CodeIgniter\Model->insert()
+ 9 APPPATH/Controllers/MouvementController.php(46): CodeIgniter\BaseModel->save()
+10 APPPATH/Controllers/MouvementController.php(34): App\Controllers\MouvementController->depot()
+11 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\MouvementController->deposer()
+12 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+13 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+14 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+15 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+16 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+17 SYSTEMPATH/rewrite.php(44): require_once('/home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/public/index.php')

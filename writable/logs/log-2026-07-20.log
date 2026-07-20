@@ -24,3 +24,353 @@ in SYSTEMPATH/Exceptions/FrameworkException.php on line 39.
  8 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
  9 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
 10 SYSTEMPATH/rewrite.php(44): require_once('/home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/public/index.php')
+DEBUG - 2026-07-20 07:39:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 07:39:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 07:39:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2026-07-20 07:39:31 --> Error connecting to the database: Exception: Unable to open database: unable to open database file in /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Database/SQLite3/Connection.php:111
+Stack trace:
+#0 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Database/SQLite3/Connection.php(111): SQLite3->__construct()
+#1 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Database/BaseConnection.php(555): CodeIgniter\Database\SQLite3\Connection->connect()
+#2 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Database/SQLite3/Connection.php(74): CodeIgniter\Database\BaseConnection->initialize()
+#3 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Database/BaseConnection.php(795): CodeIgniter\Database\SQLite3\Connection->initialize()
+#4 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#5 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+#6 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/BaseModel.php(714): CodeIgniter\Model->doFirst()
+#7 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/app/Models/Numero.php(50): CodeIgniter\BaseModel->first()
+#8 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/app/Controllers/LoginController.php(17): App\Models\Numero->findBySequence()
+#9 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/CodeIgniter.php(951): App\Controllers\LoginController->auth()
+#10 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#11 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#12 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#13 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#14 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#15 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/rewrite.php(44): require_once('...')
+#16 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: SQLite3 error: Unable to open database: unable to open database file in /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Database/SQLite3/Connection.php:118
+Stack trace:
+#0 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Database/BaseConnection.php(555): CodeIgniter\Database\SQLite3\Connection->connect()
+#1 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Database/SQLite3/Connection.php(74): CodeIgniter\Database\BaseConnection->initialize()
+#2 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Database/BaseConnection.php(795): CodeIgniter\Database\SQLite3\Connection->initialize()
+#3 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#4 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+#5 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/BaseModel.php(714): CodeIgniter\Model->doFirst()
+#6 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/app/Models/Numero.php(50): CodeIgniter\BaseModel->first()
+#7 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/app/Controllers/LoginController.php(17): App\Models\Numero->findBySequence()
+#8 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/CodeIgniter.php(951): App\Controllers\LoginController->auth()
+#9 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#10 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#11 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#12 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#13 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#14 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/rewrite.php(44): require_once('...')
+#15 {main}
+CRITICAL - 2026-07-20 07:39:31 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [SQLite3]: SQLite3 error: Unable to open database: unable to open database file
+[Method: POST, Route: login/auth]
+in SYSTEMPATH/Database/BaseConnection.php on line 606.
+ 1 SYSTEMPATH/Database/SQLite3/Connection.php(74): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH/Database/BaseConnection.php(795): CodeIgniter\Database\SQLite3\Connection->initialize()
+ 3 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+ 4 SYSTEMPATH/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH/BaseModel.php(714): CodeIgniter\Model->doFirst()
+ 6 APPPATH/Models/Numero.php(50): CodeIgniter\BaseModel->first()
+ 7 APPPATH/Controllers/LoginController.php(17): App\Models\Numero->findBySequence()
+ 8 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\LoginController->auth()
+ 9 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+10 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+11 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+13 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+14 SYSTEMPATH/rewrite.php(44): require_once('/home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/public/index.php')
+DEBUG - 2026-07-20 07:39:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2026-07-20 07:39:55 --> Error connecting to the database: Exception: Unable to open database: unable to open database file in /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Database/SQLite3/Connection.php:111
+Stack trace:
+#0 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Database/SQLite3/Connection.php(111): SQLite3->__construct()
+#1 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Database/BaseConnection.php(555): CodeIgniter\Database\SQLite3\Connection->connect()
+#2 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Database/SQLite3/Connection.php(74): CodeIgniter\Database\BaseConnection->initialize()
+#3 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Database/BaseConnection.php(795): CodeIgniter\Database\SQLite3\Connection->initialize()
+#4 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#5 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+#6 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/BaseModel.php(714): CodeIgniter\Model->doFirst()
+#7 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/app/Models/Numero.php(50): CodeIgniter\BaseModel->first()
+#8 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/app/Controllers/LoginController.php(17): App\Models\Numero->findBySequence()
+#9 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/CodeIgniter.php(951): App\Controllers\LoginController->auth()
+#10 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#11 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#12 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#13 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#14 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#15 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/rewrite.php(44): require_once('...')
+#16 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: SQLite3 error: Unable to open database: unable to open database file in /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Database/SQLite3/Connection.php:118
+Stack trace:
+#0 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Database/BaseConnection.php(555): CodeIgniter\Database\SQLite3\Connection->connect()
+#1 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Database/SQLite3/Connection.php(74): CodeIgniter\Database\BaseConnection->initialize()
+#2 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Database/BaseConnection.php(795): CodeIgniter\Database\SQLite3\Connection->initialize()
+#3 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#4 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+#5 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/BaseModel.php(714): CodeIgniter\Model->doFirst()
+#6 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/app/Models/Numero.php(50): CodeIgniter\BaseModel->first()
+#7 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/app/Controllers/LoginController.php(17): App\Models\Numero->findBySequence()
+#8 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/CodeIgniter.php(951): App\Controllers\LoginController->auth()
+#9 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#10 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#11 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#12 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#13 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#14 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/rewrite.php(44): require_once('...')
+#15 {main}
+CRITICAL - 2026-07-20 07:39:55 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [SQLite3]: SQLite3 error: Unable to open database: unable to open database file
+[Method: POST, Route: login/auth]
+in SYSTEMPATH/Database/BaseConnection.php on line 606.
+ 1 SYSTEMPATH/Database/SQLite3/Connection.php(74): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH/Database/BaseConnection.php(795): CodeIgniter\Database\SQLite3\Connection->initialize()
+ 3 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+ 4 SYSTEMPATH/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH/BaseModel.php(714): CodeIgniter\Model->doFirst()
+ 6 APPPATH/Models/Numero.php(50): CodeIgniter\BaseModel->first()
+ 7 APPPATH/Controllers/LoginController.php(17): App\Models\Numero->findBySequence()
+ 8 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\LoginController->auth()
+ 9 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+10 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+11 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+13 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+14 SYSTEMPATH/rewrite.php(44): require_once('/home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/public/index.php')
+DEBUG - 2026-07-20 07:40:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2026-07-20 07:40:35 --> Error connecting to the database: Exception: Unable to open database: unable to open database file in /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Database/SQLite3/Connection.php:111
+Stack trace:
+#0 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Database/SQLite3/Connection.php(111): SQLite3->__construct()
+#1 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Database/BaseConnection.php(555): CodeIgniter\Database\SQLite3\Connection->connect()
+#2 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Database/SQLite3/Connection.php(74): CodeIgniter\Database\BaseConnection->initialize()
+#3 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Database/BaseConnection.php(795): CodeIgniter\Database\SQLite3\Connection->initialize()
+#4 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#5 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+#6 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/BaseModel.php(714): CodeIgniter\Model->doFirst()
+#7 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/app/Models/Numero.php(50): CodeIgniter\BaseModel->first()
+#8 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/app/Controllers/LoginController.php(17): App\Models\Numero->findBySequence()
+#9 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/CodeIgniter.php(951): App\Controllers\LoginController->auth()
+#10 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#11 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#12 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#13 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#14 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#15 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/rewrite.php(44): require_once('...')
+#16 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: SQLite3 error: Unable to open database: unable to open database file in /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Database/SQLite3/Connection.php:118
+Stack trace:
+#0 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Database/BaseConnection.php(555): CodeIgniter\Database\SQLite3\Connection->connect()
+#1 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Database/SQLite3/Connection.php(74): CodeIgniter\Database\BaseConnection->initialize()
+#2 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Database/BaseConnection.php(795): CodeIgniter\Database\SQLite3\Connection->initialize()
+#3 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#4 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+#5 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/BaseModel.php(714): CodeIgniter\Model->doFirst()
+#6 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/app/Models/Numero.php(50): CodeIgniter\BaseModel->first()
+#7 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/app/Controllers/LoginController.php(17): App\Models\Numero->findBySequence()
+#8 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/CodeIgniter.php(951): App\Controllers\LoginController->auth()
+#9 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#10 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#11 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#12 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#13 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#14 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/rewrite.php(44): require_once('...')
+#15 {main}
+CRITICAL - 2026-07-20 07:40:35 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [SQLite3]: SQLite3 error: Unable to open database: unable to open database file
+[Method: POST, Route: login/auth]
+in SYSTEMPATH/Database/BaseConnection.php on line 606.
+ 1 SYSTEMPATH/Database/SQLite3/Connection.php(74): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH/Database/BaseConnection.php(795): CodeIgniter\Database\SQLite3\Connection->initialize()
+ 3 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+ 4 SYSTEMPATH/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH/BaseModel.php(714): CodeIgniter\Model->doFirst()
+ 6 APPPATH/Models/Numero.php(50): CodeIgniter\BaseModel->first()
+ 7 APPPATH/Controllers/LoginController.php(17): App\Models\Numero->findBySequence()
+ 8 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\LoginController->auth()
+ 9 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+10 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+11 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+13 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+14 SYSTEMPATH/rewrite.php(44): require_once('/home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/public/index.php')
+DEBUG - 2026-07-20 07:42:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2026-07-20 07:42:29 --> Error connecting to the database: Exception: Unable to open database: unable to open database file in /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Database/SQLite3/Connection.php:111
+Stack trace:
+#0 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Database/SQLite3/Connection.php(111): SQLite3->__construct()
+#1 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Database/BaseConnection.php(555): CodeIgniter\Database\SQLite3\Connection->connect()
+#2 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Database/SQLite3/Connection.php(74): CodeIgniter\Database\BaseConnection->initialize()
+#3 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Database/BaseConnection.php(795): CodeIgniter\Database\SQLite3\Connection->initialize()
+#4 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#5 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+#6 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/BaseModel.php(714): CodeIgniter\Model->doFirst()
+#7 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/app/Models/Numero.php(50): CodeIgniter\BaseModel->first()
+#8 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/app/Controllers/LoginController.php(17): App\Models\Numero->findBySequence()
+#9 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/CodeIgniter.php(951): App\Controllers\LoginController->auth()
+#10 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#11 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#12 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#13 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#14 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#15 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/rewrite.php(44): require_once('...')
+#16 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: SQLite3 error: Unable to open database: unable to open database file in /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Database/SQLite3/Connection.php:118
+Stack trace:
+#0 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Database/BaseConnection.php(555): CodeIgniter\Database\SQLite3\Connection->connect()
+#1 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Database/SQLite3/Connection.php(74): CodeIgniter\Database\BaseConnection->initialize()
+#2 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Database/BaseConnection.php(795): CodeIgniter\Database\SQLite3\Connection->initialize()
+#3 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#4 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+#5 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/BaseModel.php(714): CodeIgniter\Model->doFirst()
+#6 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/app/Models/Numero.php(50): CodeIgniter\BaseModel->first()
+#7 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/app/Controllers/LoginController.php(17): App\Models\Numero->findBySequence()
+#8 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/CodeIgniter.php(951): App\Controllers\LoginController->auth()
+#9 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#10 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#11 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#12 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#13 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#14 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/rewrite.php(44): require_once('...')
+#15 {main}
+CRITICAL - 2026-07-20 07:42:29 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [SQLite3]: SQLite3 error: Unable to open database: unable to open database file
+[Method: POST, Route: login/auth]
+in SYSTEMPATH/Database/BaseConnection.php on line 606.
+ 1 SYSTEMPATH/Database/SQLite3/Connection.php(74): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH/Database/BaseConnection.php(795): CodeIgniter\Database\SQLite3\Connection->initialize()
+ 3 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+ 4 SYSTEMPATH/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH/BaseModel.php(714): CodeIgniter\Model->doFirst()
+ 6 APPPATH/Models/Numero.php(50): CodeIgniter\BaseModel->first()
+ 7 APPPATH/Controllers/LoginController.php(17): App\Models\Numero->findBySequence()
+ 8 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\LoginController->auth()
+ 9 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+10 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+11 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+13 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+14 SYSTEMPATH/rewrite.php(44): require_once('/home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/public/index.php')
+DEBUG - 2026-07-20 07:44:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2026-07-20 07:44:09 --> Error connecting to the database: Exception: Unable to open database: unable to open database file in /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Database/SQLite3/Connection.php:111
+Stack trace:
+#0 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Database/SQLite3/Connection.php(111): SQLite3->__construct()
+#1 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Database/BaseConnection.php(555): CodeIgniter\Database\SQLite3\Connection->connect()
+#2 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Database/SQLite3/Connection.php(74): CodeIgniter\Database\BaseConnection->initialize()
+#3 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Database/BaseConnection.php(795): CodeIgniter\Database\SQLite3\Connection->initialize()
+#4 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#5 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+#6 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/BaseModel.php(714): CodeIgniter\Model->doFirst()
+#7 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/app/Models/Numero.php(50): CodeIgniter\BaseModel->first()
+#8 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/app/Controllers/LoginController.php(17): App\Models\Numero->findBySequence()
+#9 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/CodeIgniter.php(951): App\Controllers\LoginController->auth()
+#10 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#11 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#12 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#13 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#14 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#15 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/rewrite.php(44): require_once('...')
+#16 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: SQLite3 error: Unable to open database: unable to open database file in /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Database/SQLite3/Connection.php:118
+Stack trace:
+#0 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Database/BaseConnection.php(555): CodeIgniter\Database\SQLite3\Connection->connect()
+#1 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Database/SQLite3/Connection.php(74): CodeIgniter\Database\BaseConnection->initialize()
+#2 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Database/BaseConnection.php(795): CodeIgniter\Database\SQLite3\Connection->initialize()
+#3 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#4 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+#5 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/BaseModel.php(714): CodeIgniter\Model->doFirst()
+#6 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/app/Models/Numero.php(50): CodeIgniter\BaseModel->first()
+#7 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/app/Controllers/LoginController.php(17): App\Models\Numero->findBySequence()
+#8 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/CodeIgniter.php(951): App\Controllers\LoginController->auth()
+#9 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#10 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#11 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#12 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#13 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#14 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/rewrite.php(44): require_once('...')
+#15 {main}
+CRITICAL - 2026-07-20 07:44:09 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [SQLite3]: SQLite3 error: Unable to open database: unable to open database file
+[Method: POST, Route: login/auth]
+in SYSTEMPATH/Database/BaseConnection.php on line 606.
+ 1 SYSTEMPATH/Database/SQLite3/Connection.php(74): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH/Database/BaseConnection.php(795): CodeIgniter\Database\SQLite3\Connection->initialize()
+ 3 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+ 4 SYSTEMPATH/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH/BaseModel.php(714): CodeIgniter\Model->doFirst()
+ 6 APPPATH/Models/Numero.php(50): CodeIgniter\BaseModel->first()
+ 7 APPPATH/Controllers/LoginController.php(17): App\Models\Numero->findBySequence()
+ 8 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\LoginController->auth()
+ 9 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+10 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+11 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+13 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+14 SYSTEMPATH/rewrite.php(44): require_once('/home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/public/index.php')
+DEBUG - 2026-07-20 07:44:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 07:44:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 07:44:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 07:44:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 07:44:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 07:44:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2026-07-20 07:44:17 --> Error connecting to the database: Exception: Unable to open database: unable to open database file in /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Database/SQLite3/Connection.php:111
+Stack trace:
+#0 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Database/SQLite3/Connection.php(111): SQLite3->__construct()
+#1 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Database/BaseConnection.php(555): CodeIgniter\Database\SQLite3\Connection->connect()
+#2 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Database/SQLite3/Connection.php(74): CodeIgniter\Database\BaseConnection->initialize()
+#3 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Database/BaseConnection.php(795): CodeIgniter\Database\SQLite3\Connection->initialize()
+#4 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#5 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+#6 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/BaseModel.php(714): CodeIgniter\Model->doFirst()
+#7 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/app/Models/Numero.php(50): CodeIgniter\BaseModel->first()
+#8 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/app/Controllers/LoginController.php(17): App\Models\Numero->findBySequence()
+#9 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/CodeIgniter.php(951): App\Controllers\LoginController->auth()
+#10 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#11 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#12 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#13 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#14 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#15 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/rewrite.php(44): require_once('...')
+#16 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: SQLite3 error: Unable to open database: unable to open database file in /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Database/SQLite3/Connection.php:118
+Stack trace:
+#0 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Database/BaseConnection.php(555): CodeIgniter\Database\SQLite3\Connection->connect()
+#1 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Database/SQLite3/Connection.php(74): CodeIgniter\Database\BaseConnection->initialize()
+#2 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Database/BaseConnection.php(795): CodeIgniter\Database\SQLite3\Connection->initialize()
+#3 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#4 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+#5 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/BaseModel.php(714): CodeIgniter\Model->doFirst()
+#6 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/app/Models/Numero.php(50): CodeIgniter\BaseModel->first()
+#7 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/app/Controllers/LoginController.php(17): App\Models\Numero->findBySequence()
+#8 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/CodeIgniter.php(951): App\Controllers\LoginController->auth()
+#9 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#10 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#11 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#12 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#13 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#14 /home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/system/rewrite.php(44): require_once('...')
+#15 {main}
+CRITICAL - 2026-07-20 07:44:17 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [SQLite3]: SQLite3 error: Unable to open database: unable to open database file
+[Method: POST, Route: login/auth]
+in SYSTEMPATH/Database/BaseConnection.php on line 606.
+ 1 SYSTEMPATH/Database/SQLite3/Connection.php(74): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH/Database/BaseConnection.php(795): CodeIgniter\Database\SQLite3\Connection->initialize()
+ 3 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+ 4 SYSTEMPATH/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH/BaseModel.php(714): CodeIgniter\Model->doFirst()
+ 6 APPPATH/Models/Numero.php(50): CodeIgniter\BaseModel->first()
+ 7 APPPATH/Controllers/LoginController.php(17): App\Models\Numero->findBySequence()
+ 8 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\LoginController->auth()
+ 9 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+10 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+11 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+13 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+14 SYSTEMPATH/rewrite.php(44): require_once('/home/balou/S4/SysInfo/ProjetFinal/Operateur_Orange/public/index.php')
+DEBUG - 2026-07-20 07:44:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.

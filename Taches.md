@@ -5,8 +5,8 @@
 - Interface & Userflow [Alexandre]
   - Userflow: login [ok]
   - Userflow: accueil [ok]
-  - Interface: login 
-  - Interface: accueil
+  - Interface: login [ok]
+  - Interface: accueil [ok]
   - Controllers: MouvementController
   - Routes 
 - MCD & Back

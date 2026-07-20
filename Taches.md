@@ -32,9 +32,8 @@
   - operateur
   - prefixOperateur
   - bareme
-- Modification des models [Mandres]
+- Modification des models [Mandresy]
   - operateur
-  - prefixOperateur
   - bareme
 - Rajout des methodes [Mandresy]
   - modification des prefixes pour chaque operateur

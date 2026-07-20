@@ -25,4 +25,19 @@ class MouvementController extends BaseController {
 
         return redirect()->to("/accueil");
     }
+
+    public function retrait() {
+        $mouvement = new Mouvement();
+    }
+
+    public function getSolde($idNumero) {
+        $resultat = $model->select("
+            SUM(
+                CASE 
+                    WHEN idOperation IN (1, 2) THEN -argent
+                    ELSE argent                              
+                END
+            ) AS solde_total
+        ")->where('idN1', $numeroN1)->first();
+    }
 }

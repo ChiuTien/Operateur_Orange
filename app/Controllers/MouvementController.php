@@ -6,6 +6,7 @@ use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
 
 use App\Models\Mouvement;
+use App\Models\Bareme;
 
 class MouvementController extends BaseController {
     protected $mouvement;
@@ -18,6 +19,12 @@ class MouvementController extends BaseController {
 
     public function index() {
         //
+    }
+
+    public function deductionFrais($montant) {
+        $ligne = $this->bareme->where("{$montant} BETWEEN min AND max")->first();
+        $frais = $ligne['frais'] ?? 0;
+        return $montant + $frais;
     }
 
     public function depot() {
@@ -48,7 +55,10 @@ class MouvementController extends BaseController {
 
         $solde = $this->getSolde($idNum);
 
+        $montant = $this->deductionFrais($montant);
+
         if($solde < $montant) {
+            $necessaire = $montant - $solde;
             //Message d'erreur + retour
         } 
 
@@ -70,7 +80,7 @@ class MouvementController extends BaseController {
                     ELSE argent                              
                 END
             ) AS solde
-        ")->where('idN1', $idNum)->first();
+        ", false)->where('idN1', $idNum)->first();
         return $resultat['solde'] ?? 0;
     }
 }

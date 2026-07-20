@@ -13,7 +13,8 @@ class Prefix extends Model
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = [
-        "sequence"
+        "sequence",
+        "idOperateur"
     ];
 
     protected bool $allowEmptyInserts = false;

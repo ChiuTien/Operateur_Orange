@@ -37,7 +37,6 @@
 - Rajout des methodes [Mandresy]
   - modification des prefixes pour chaque operateur [ok]
   - gestion des baremes de frais pour chaque operateur [ok]
-  - situation gain via frais
   - situation des comptes clients
 
 # REPARTITION DES TACHES V2 [Alexandre]

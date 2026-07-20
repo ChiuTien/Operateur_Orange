@@ -17,17 +17,8 @@ class MouvementController extends BaseController {
         $this->bareme = new Bareme();
     }
 
-    public function index() {
-        //
-    }
-
-    public function deductionFrais($montant) {
-        $ligne = $this->bareme->where("{$montant} BETWEEN min AND max")->first();
-        $frais = $ligne['frais'] ?? 0;
-        return $montant + $frais;
-    }
-
-    public function depot() {
+    //Sous-Methodes
+    public function getDataDepotRetrait() {
         $idNum = session()->get('id_numero');
         $montant = $this->request->getPost('montant');
 
@@ -38,39 +29,17 @@ class MouvementController extends BaseController {
             return redirect()->to('/accueil')->with('error', 'Veuillez insérer un montant valide.');
         }
 
-        $donnee = [
-            "idN1" => $idNum,
-            "idOperation" => 1,
-            "argent" => $montant
+        $data = [
+            "idNum" => $idNum,
+            "montant" => $montant
         ];
-
-        $this->mouvement->save($donnee);
-
-        return redirect()->to("/accueil");
+        return $data;
     }
-
-    public function retrait() {
-        $idNum = session()->get('id_numero');
-        $montant = $this->request->getPost('montant');
-
-        $solde = $this->getSolde($idNum);
-
-        $montant = $this->deductionFrais($montant);
-
-        if($solde < $montant) {
-            $necessaire = $montant - $solde;
-            //Message d'erreur + retour
-        } 
-
-        $donnee = [
-            "idN1" => $idNum,
-            "idOperation" => 2,
-            "argent" => $montant
-        ];
-        $this->mouvement->save($donnee);
-        return redirect()->to("/accueil");
+    public function deductionFrais($montant) {
+        $ligne = $this->bareme->where("{$montant} BETWEEN min AND max")->first();
+        $frais = $ligne['frais'] ?? 0;
+        return $montant + $frais;
     }
-
     public function getSolde($idNum) {
 
         $resultat = $this->mouvement->select("
@@ -82,5 +51,53 @@ class MouvementController extends BaseController {
             ) AS solde
         ", false)->where('idN1', $idNum)->first();
         return $resultat['solde'] ?? 0;
+    }
+
+    //Methodes principaux
+    public function depot() {
+        $data = $this->getDataDepotRetrait();
+
+        if (!is_array($data)) {
+            return $data; 
+        }
+
+        $idNum = $data['idNum'];
+        $montant = $data['montant'];
+
+        $donnee = [
+            "idN1" => $idNum,
+            "idOperation" => 1,
+            "argent" => $montant
+        ];
+
+        $this->mouvement->save($donnee);
+        return redirect()->to("/accueil");
+    }
+
+    public function retrait() {
+        $data = $this->getDataDepotRetrait();
+
+        if (!is_array($data)) {
+            return $data; 
+        }
+
+        $idNum = $data['idNum'];
+        $montant = $data['montant'];
+
+        $solde = $this->getSolde($idNum);
+        $montant = $this->deductionFrais($montant);
+
+        if($solde < $montant) {
+            $necessaire = $montant - $solde;
+            return redirect()->to('/accueil')->with('error', "Solde insuffisant. Il vous manque {$necessaire} Ar pour couvrir le retrait et ses frais.");
+        } 
+
+        $donnee = [
+            "idN1" => $idNum,
+            "idOperation" => 2,
+            "argent" => $montant
+        ];
+        $this->mouvement->save($donnee);
+        return redirect()->to("/accueil");
     }
 }

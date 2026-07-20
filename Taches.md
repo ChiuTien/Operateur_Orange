@@ -1,7 +1,7 @@
 # LECTURE DU SUJET [Mandresy & Alexandre] [ok]
 - Placement du fichier base.sql dans app/Database/Sql [Mandresy] [ok]
 
-# REPARTITION DES TACHES [Mandresy & Alexandre]
+# REPARTITION DES TACHES VERSION 1 [Mandresy & Alexandre]
 - Interface & Userflow [Alexandre]
   - Userflow: login [ok]
   - Userflow: accueil [ok]
@@ -27,4 +27,7 @@
     - transfert() [ok]
     - historique() [ok]
 
-`NB :` La v1 était déja finie mais on a oublié de chequer la liste des tâches.
+# REPARTITION DES TACHES VERSION 2 [Mandresy & Alexandre]
+- Modification des tables
+  - operateur
+  - prefixOperateur

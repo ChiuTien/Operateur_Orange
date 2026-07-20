@@ -46,23 +46,22 @@ class MouvementController extends BaseController {
 
         $solde = $this->getSolde($idNum);
 
-        if($solde >= $montant) {
-            $donnee = [
-                "idN1" => $idNum,
-                "idOperation" => 2,
-                "argent" => $montant
-            ];
-            $this->mouvement->save($donnee);
-        } else {
-            //Asion erreur
-        }
+        if($solde < $montant) {
+            //Message d'erreur + retour
+        } 
+
+        $donnee = [
+            "idN1" => $idNum,
+            "idOperation" => 2,
+            "argent" => $montant
+        ];
+        $this->mouvement->save($donnee);
+        return redirect()->to("/accueil");
     }
 
     public function getSolde($idNum) {
 
-        $mouvement = new Mouvement();
-
-        $resultat = $mouvement->select("
+        $resultat = $this->mouvement->select("
             SUM(
                 CASE 
                     WHEN idOperation IN (2, 3) THEN -argent

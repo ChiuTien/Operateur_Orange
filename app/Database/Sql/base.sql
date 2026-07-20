@@ -1,7 +1,8 @@
 -- Table: operateur
 CREATE TABLE IF NOT EXISTS operateur (
     id      INTEGER PRIMARY KEY AUTOINCREMENT,
-    nom     TEXT NOT NULL UNIQUE
+    nom     TEXT NOT NULL UNIQUE,
+    mdp     TEXT NOT NULL
 );
 
 -- Table: prefixe (Modifiée : liée directement à un opérateur)

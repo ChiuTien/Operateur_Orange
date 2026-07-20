@@ -13,7 +13,8 @@ class Operateur extends Model
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = [
-        ""
+        "nom",
+        "mdp"
     ];
 
     protected bool $allowEmptyInserts = false;

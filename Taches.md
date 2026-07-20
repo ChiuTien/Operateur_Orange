@@ -27,7 +27,7 @@
     - transfert() [ok]
     - historique() [ok]
 
-# REPARTITION DES TACHES VERSION 2 [Mandresy & Alexandre]
+# REPARTITION DES TACHES VERSION 2 [Mandresy]
 - Modification des tables [Mandresy]
   - operateur [ok]
   - bareme [ok]

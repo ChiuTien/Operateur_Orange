@@ -21,3 +21,6 @@ $routes->post('/retrait', 'MouvementController::retrait');
 
     // Transfert
 $routes->post('/transfert', 'MouvementController::transfert');
+    
+    // Historique 
+$routes->post('/historique', 'MouvementController::historique');

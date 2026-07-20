@@ -22,5 +22,7 @@ class MouvementController extends BaseController {
         ];
 
         $mouvement->save($donnee);
+
+        return redirect()->to("/accueil");
     }
 }

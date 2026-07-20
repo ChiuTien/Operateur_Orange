@@ -43,5 +43,19 @@
     </form>
 
     <!-- Voir historique -->
+     <h2>Consulter votre historique</h2>
+    
+    <!-- Formulaire pour choisir le filtre et soumettre -->
+    <form action="<?= base_url('historique') ?>" method="post">
+        <?= csrf_field() ?>
+        <label for="filtre">Filtrer les mouvements par :</label>
+        <select name="filtre" id="filtre">
+            <option value="tout">Tout afficher</option>
+            <option value="depot">Dépôts uniquement</option>
+            <option value="retrait">Retraits uniquement</option>
+            <option value="transfert">Transferts uniquement</option>
+        </select>
+        <button type="submit">Voir les résultats</button>
+    </form>
 </body>
 </html>

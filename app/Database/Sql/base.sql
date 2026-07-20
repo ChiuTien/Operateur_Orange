@@ -20,6 +20,23 @@ CREATE TABLE IF NOT EXISTS num_prefixe (
     FOREIGN KEY (idPrefixe) REFERENCES prefixe(id) ON DELETE CASCADE
 );
 
+-- Table: client
+CREATE TABLE IF NOT EXISTS client (
+    id      INTEGER PRIMARY KEY AUTOINCREMENT,
+    nom     TEXT NOT NULL,
+    mdp     TEXT NOT NULL
+);
+
+-- Table: num_client (Table d'association entre client et numero)
+CREATE TABLE IF NOT EXISTS num_client (
+    id          INTEGER PRIMARY KEY AUTOINCREMENT,
+    idClient    INTEGER NOT NULL,
+    idNum       INTEGER NOT NULL,
+    
+    FOREIGN KEY (idClient) REFERENCES client(id) ON DELETE CASCADE,
+    FOREIGN KEY (idNum) REFERENCES numero(id) ON DELETE CASCADE
+);
+
 -- Table: operation
 CREATE TABLE IF NOT EXISTS operation (
     id      INTEGER PRIMARY KEY AUTOINCREMENT,

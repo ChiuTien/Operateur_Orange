@@ -7,17 +7,17 @@ use CodeIgniter\HTTP\ResponseInterface;
 
 use App\Models\Mouvement;
 use App\Models\Bareme;
-use App\Models\Numero; // 1. Ne pas oublier d'importer le modèle Numero
+use App\Models\Numero; 
 
 class MouvementController extends BaseController {
     protected $mouvement;
     protected $bareme;
-    protected $numeroModel; // Variable pour le modèle Numero
+    protected $numeroModel; 
 
     public function __construct() {
         $this->mouvement = new Mouvement();
         $this->bareme = new Bareme();
-        $this->numeroModel = new Numero(); // 2. Instanciation dans le constructeur
+        $this->numeroModel = new Numero();
     }
 
     // --- Sous-Méthodes ---
@@ -147,4 +147,36 @@ class MouvementController extends BaseController {
 
         return redirect()->to("/accueil")->with('success', 'Transfert envoyé avec succès !');
     }
+    public function historique() {
+        $idNum = session()->get('id_numero');
+        if (!$idNum) {
+            return redirect()->to('/login')->with('error', 'Veuillez vous connecter.');
+        }
+
+        $filtre = $this->request->getPost('filtre') ?? 'tout';
+
+        $query = $this->mouvement->where('idN1', $idNum);
+
+        switch ($filtre) {
+            case 'depot':
+                $query->where('idOperation', 1);
+                break;
+            case 'retrait':
+                $query->where('idOperation', 2);
+                break;
+            case 'transfert':
+                $query->where('idOperation', 3);
+                break;
+            case 'tout':
+                default:
+                break;
+        }
+
+    $listeMouvements = $query->orderBy('id', 'DESC')->findAll();
+
+    return view('mouvements/historique_vue', [
+        'mouvements'    => $listeMouvements,
+        'filtreActuel'  => $filtre
+    ]);
+}
 }

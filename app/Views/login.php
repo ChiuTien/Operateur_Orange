@@ -11,9 +11,9 @@
         <label for="numero">Taper votre numero</label><br>
         <input type="text" name="numero" required><br>
         <small>0334621231</small><br>
-        <label for="mdp">Taper votre mot de passe</label><br>
+        <!-- <label for="mdp">Taper votre mot de passe</label><br>
         <input type="text" name="mdp" required><br>
-        <small>123456</small><br>
+        <small>123456</small><br> -->
         <button type="submit"> Connexion </button>
     </form>
 </body>

@@ -6,6 +6,7 @@
     <title>Login</title>
 </head>
 <body>
+    <h2>Veuillez taper vos identifiants : </h2>
     <form action="" method="post">
         <label for="numero">Taper votre numero</label>
         <input type="text">

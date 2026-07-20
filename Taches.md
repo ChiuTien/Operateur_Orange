@@ -39,7 +39,6 @@
   - gestion des baremes de frais pour chaque operateur
   - situation gain via frais
   - situation des comptes clients
-`NB :` La v1 était déja finie mais on a oublié de chequer la liste des tâches.
 
 # REPARTITION DES TACHES V2 [Alexandre]
   # Coté opérateur

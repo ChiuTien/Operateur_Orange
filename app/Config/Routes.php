@@ -14,4 +14,4 @@ $routes->post('/login/auth', 'LoginController::auth');
 // Operation
 
     // Depot 
-$routes->post('/depot', 'MouvementController::deposer');
+$routes->post('/depot', 'MouvementController::depot');

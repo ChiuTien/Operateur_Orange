@@ -27,10 +27,9 @@ class Home extends BaseController
         }
 
         $soldeData = $this->mouvementController->getSolde($idNum);        
-        $soldeActuel = $soldeData['solde'] ?? 0; 
 
         $data = [
-            'solde' => $soldeActuel
+            'solde' => $soldeData
         ];
 
         return view('accueil', $data);

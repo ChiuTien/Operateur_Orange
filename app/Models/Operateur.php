@@ -4,17 +4,16 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class NumPrefix extends Model
+class Operateur extends Model
 {
-    protected $table            = 'num_prefixe';
+    protected $table            = 'operateur';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = [
-        "idNum",
-        "idPrefixe"
+        ""
     ];
 
     protected bool $allowEmptyInserts = false;

@@ -29,9 +29,8 @@
 
 # REPARTITION DES TACHES VERSION 2 [Mandresy & Alexandre]
 - Modification des tables [Mandresy]
-  - operateur
-  - prefixOperateur
-  - bareme
+  - operateur [ok]
+  - bareme [ok]
 - Modification des models [Mandresy]
   - operateur
   - bareme

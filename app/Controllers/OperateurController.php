@@ -6,7 +6,7 @@ use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
 
 use App\Models\Bareme;
-use App\Models\Prefixe;
+use App\Models\Prefix;
 
 class OperateurController extends BaseController {
     protected $bareme;
@@ -14,7 +14,7 @@ class OperateurController extends BaseController {
 
     public function __construct() {
         $this->bareme = new Bareme();
-        $this->prefixe = new Prefixe();
+        $this->prefixe = new Prefix();
     }
 
     /* 
@@ -111,7 +111,7 @@ class OperateurController extends BaseController {
         // Récupère dynamiquement les préfixes appartenant à cet opérateur
         $listePrefixes = $this->prefixe->where('idOperateur', $idOperateur)->findAll();
 
-        return view('operator/listPrefixe', ['prefixes' => $idOperateur]);
+        return view('operator/listPrefixe', ['prefixes' => $listePrefixes]);
     }
 
     public function getPrefixData() {

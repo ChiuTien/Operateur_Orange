@@ -8,10 +8,13 @@
 <body>
     <h2>Veuillez taper vos identifiants : </h2>
     <form action="" method="post">
-        <label for="numero">Taper votre numero</label>
-        <input type="text">
-        <label for="mdp">Taper votre mot de passe</label>
-        <input type="text">
+        <label for="numero">Taper votre numero</label><br>
+        <input type="text"><br>
+        <small>0334621231</small><br>
+        <label for="mdp">Taper votre mot de passe</label><br>
+        <input type="text"><br>
+        <small>123456</small><br>
+        <button type="submit"> Connexion </button>
     </form>
 </body>
 </html>

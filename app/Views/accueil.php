@@ -6,9 +6,16 @@
     <title>Acceuil</title>
 </head>
 <body>
+    <?php if (session()->getFlashdata('error')):  ?>
+        <?= session()->getFlashdata('error') ?>
+    <?php endif; ?> 
+    
     <h2>C'est un plaisir de vous revoir.</h2>
+    
     <!-- Voir solde -->
-
+    <strong>Votre solde actuel :</strong>
+    <span><?= $solde ?></span>
+    
     <!-- Faire un depot -->
     <h3>Combien allez vous versez ?</h3>
     <form action="/depot" method="post">

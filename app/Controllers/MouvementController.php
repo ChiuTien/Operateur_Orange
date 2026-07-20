@@ -9,9 +9,11 @@ use App\Models\Mouvement;
 
 class MouvementController extends BaseController {
     protected $mouvement;
+    protected $bareme;
 
     public function __construct() {
         $this->mouvement = new Mouvement();
+        $this->bareme = new Bareme();
     }
 
     public function index() {

@@ -10,7 +10,7 @@
 - MCD & Back [Mandresy]
   - Connexion Base de donnee [ok]
   - Tables: prefix, numero, num_prefix, operation, bareme, mouvement, client, num_client [ok]
-  - Models: Client, Operation, Mouvement, Prefix, NumPrefix, Numero, NumClient [ok]
+  - Models: Client, Operation, Mouvement, Prefix, NumPrefix, Numero, NumClient, Bareme [ok]
 - Controller [Mandresy & Alexandre]
   - MouvementController
     - depot() [ok]

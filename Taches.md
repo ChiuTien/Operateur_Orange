@@ -28,6 +28,16 @@
     - historique() [ok]
 
 # REPARTITION DES TACHES VERSION 2 [Mandresy & Alexandre]
-- Modification des tables
+- Modification des tables [Mandresy]
   - operateur
   - prefixOperateur
+  - bareme
+- Modification des models [Mandres]
+  - operateur
+  - prefixOperateur
+  - bareme
+- Rajout des methodes [Mandresy]
+  - modification des prefixes pour chaque operateur
+  - gestion des baremes de frais pour chaque operateur
+  - situation gain via frais
+  - situation des comptes clients

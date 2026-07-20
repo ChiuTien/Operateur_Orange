@@ -9,6 +9,7 @@ $routes->get('/', 'Home::index');
 
 // Login
 $routes->get('/accueil', 'Home::accueil');
+$routes->get('/operator', 'Home::operator');
 $routes->post('/login/auth', 'LoginController::auth');
 
 // Operation

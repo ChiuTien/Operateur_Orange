@@ -8,7 +8,7 @@
             ➕ Ajouter un préfixe
         </button>
     </div>
-    
+ 
     <!-- Tableau d'affichage réorganisé -->
     <table border="1" cellpadding="10" cellspacing="0" style="width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; border: 1px solid #e2e8f0;">
         <thead>

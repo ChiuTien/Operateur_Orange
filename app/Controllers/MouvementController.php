@@ -12,6 +12,28 @@ class MouvementController extends BaseController {
         //
     }
 
+    public function deposer()
+    {
+        // 1. On récupère l'idNum caché dans la session actuelle
+        $idNum = session()->get('id_numero');
+
+        // 2. On récupère le montant tapé par l'utilisateur dans le formulaire
+        $montant = $this->request->getPost('montant');
+
+        // 3. Sécurité : On vérifie si l'utilisateur est bien connecté et a mis un montant
+        if (!$idNum) {
+            return redirect()->to('/login')->with('error', 'Veuillez vous connecter.');
+        }
+
+        if (!$montant || $montant <= 0) {
+            return redirect()->to('/accueil')->with('error', 'Veuillez insérer un montant valide.');
+        }
+
+        // 4. On appelle la fonction "depot" que ton ami a créée
+        // (Si sa fonction est dans ce même contrôleur, on utilise $this->depot)
+        return $this->depot($idNum, $montant);
+    }
+
     public function depot($idNum, $montant) {
         $mouvement = new Mouvement();
 

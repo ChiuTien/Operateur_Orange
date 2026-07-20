@@ -7,7 +7,7 @@
 </head>
 <body>
     <h2>Voulez_vous vous connectez en quel rôles</h2>
-    <a href="/login">Client</a>  
+    <a href="/client">Client</a>  
     <a href="/operator">Operateur</a>  
 </body>
 </html>

@@ -18,6 +18,10 @@ class Home extends BaseController
         return view('login');
     }
 
+    public function operator() {
+        return view('loginOperator');
+    }
+
     public function accueil()
     {
         $idNum = session()->get('id_numero');

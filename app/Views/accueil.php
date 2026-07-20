@@ -46,7 +46,7 @@
      <h2>Consulter votre historique</h2>
     
     <!-- Formulaire pour choisir le filtre et soumettre -->
-    <form action="<?= base_url('historique') ?>" method="post">
+    <form action="/historique" method="post">
         <?= csrf_field() ?>
         <label for="filtre">Filtrer les mouvements par :</label>
         <select name="filtre" id="filtre">

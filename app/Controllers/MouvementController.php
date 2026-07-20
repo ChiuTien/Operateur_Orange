@@ -65,7 +65,7 @@ class MouvementController extends BaseController {
         $resultat = $mouvement->select("
             SUM(
                 CASE 
-                    WHEN idOperation IN (1, 2) THEN -argent
+                    WHEN idOperation IN (2, 3) THEN -argent
                     ELSE argent                              
                 END
             ) AS solde

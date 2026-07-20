@@ -10,7 +10,6 @@
   - Controllers: OprationController
   - Routes 
 - MCD & Back
-  - Connexion Base de donnee
   - Tables: prefix, numero, num_prefix, type_operation, bareme, operation, client, num_client
   - Models: Client, Operation, TypeOperation, Prefix, NumPrefix, Numero
   - Services: OperationService

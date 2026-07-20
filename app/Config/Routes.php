@@ -15,3 +15,6 @@ $routes->post('/login/auth', 'LoginController::auth');
 
     // Depot 
 $routes->post('/depot', 'MouvementController::depot');
+
+    // Retrait 
+$routes->post('/retrait', 'MouvementController::retrait');

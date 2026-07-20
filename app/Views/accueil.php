@@ -20,7 +20,7 @@
     <h3>Combien allez vous versez ?</h3>
     <form action="/depot" method="post">
         <label for="montant">Le montant à verser</label><br>
-        <input type="number" name="montant" placeholder="15000"><br>
+        <input type="number" name="montant" placeholder="15000" required><br>
         <button type="submit"> Valider le depot </button>
     </form>
 
@@ -28,11 +28,19 @@
     <h3>Combien allez vous retirez ?</h3>
     <form action="/retrait" method="post">
         <label for="montant">Le montant à retirer</label><br>
-        <input type="number" name="montant" placeholder="15000"><br>
+        <input type="number" name="montant" placeholder="15000" required><br>
         <button type="submit"> Valider le retrait </button>
     </form>
 
     <!-- Faire un transfert -->
+     <h3>Combien allez vous envoyez ?</h3>
+    <form action="/transfert" method="post">
+        <label for="montant">Le montant à envoyer</label><br>
+        <input type="number" name="montant" placeholder="15000" required><br>
+        <label for="beneficiaire">Le numero du beneficiaire</label><br>
+        <input type="number" name="beneficiaire" placeholder="0320213411" required><br>
+        <button type="submit"> Valider l'envoie </button>
+    </form>
 
     <!-- Voir historique -->
 </body>

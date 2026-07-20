@@ -30,6 +30,10 @@ class Home extends BaseController
         return view('loginMain');
     }
 
+    public function listOperation() {
+        return view('operator/listOperation');
+    }
+
     public function accueil()
     {
         $idNum = session()->get('id_numero');

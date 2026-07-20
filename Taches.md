@@ -32,8 +32,8 @@
   - operateur [ok]
   - bareme [ok]
 - Modification des models [Mandresy]
-  - operateur
-  - bareme
+  - operateur [ok]
+  - bareme [ok]
 - Rajout des methodes [Mandresy]
   - modification des prefixes pour chaque operateur
   - gestion des baremes de frais pour chaque operateur

@@ -15,6 +15,8 @@ class Bareme extends Model
     protected $allowedFields    = [
         "min",
         "max",
+        "idOperation",
+        "idOperateur",
         "frais"
     ];
 

@@ -99,27 +99,36 @@ class OperateurController extends BaseController {
     /* 
         GESTION DES PREFIXES
     */
+    
+    // 1. La fonction pour afficher la liste réarrangée
+    public function listPrefixe() {
+        $idOperateur = session()->get('id_operateur');
+        
+        if (!$idOperateur) {
+            return redirect()->to('/loginOperator')->with('error', 'Veuillez vous connecter.');
+        }
+
+        // Récupère dynamiquement les préfixes appartenant à cet opérateur
+        $listePrefixes = $this->prefixe->where('idOperateur', $idOperateur)->findAll();
+
+        return view('operator/listPrefixe', ['prefixes' => $idOperateur]);
+    }
+
     public function getPrefixData() {
         $donnees = [
             'sequence'    => trim($this->request->getPost('sequence')),
-            'idOperateur' => $this->request->getPost('idOperateur')
+            'idOperateur' => session()->get('id_operateur') // Sécurisé via la session directe
         ];
 
         if (empty($donnees['sequence']) || empty($donnees['idOperateur'])) {
-            return redirect()->back()->with('error', 'La séquence du préfixe et l\'opérateur sont requis.');
+            return redirect()->back()->with('error', 'La séquence du préfixe est requise.');
         }
 
         return $donnees;
     }
 
-    public function getPrefixesParOperateur($idOperateur) {
-        $prefixes = $this->prefixe->where('idOperateur', $idOperateur)->findAll();
-
-        return view("test");
-    }
-
     public function createPrefixe() {
-        $donnees = $this->getPrefixeData();
+        $donnees = $this->getPrefixData();
 
         if (!is_array($donnees)) {
             return $donnees;
@@ -140,7 +149,7 @@ class OperateurController extends BaseController {
             return redirect()->back()->with('error', 'Ce préfixe n\'existe pas.');
         }
 
-        $donnees = $this->getPrefixeData();
+        $donnees = $this->getPrefixData();
         if (!is_array($donnees)) {
             return $donnees;
         }

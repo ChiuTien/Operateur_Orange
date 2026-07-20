@@ -37,7 +37,7 @@
                 </a>
             </li>
             <li>
-                <a href="<?= base_url('prefixe') ?>">
+                <a href="<?= base_url('/prefixe') ?>">
                     <span class="menu-icon">&#8226;</span> Préfixes
                 </a>
             </li>

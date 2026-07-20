@@ -160,14 +160,12 @@
         <form action="login/authOpe" method="post">
             <div class="form-group">
                 <label for="nom">Entrer votre nom</label>
-                <input type="text" id="nom" name="nom" placeholder="Yas" required>
-                <small>Ex : Yas</small>
+                <input type="text" id="nom" name="nom" value="Yas" placeholder="Yas" required>
             </div>
 
             <div class="form-group">
                 <label for="mdp">Entrer votre mot de passe</label>
-                <input type="password" id="mdp" name="mdp" placeholder="Votre mot de passe" required>
-                <small>Ex : 123</small>
+                <input type="password" id="mdp" name="mdp" value="123" placeholder="Votre mot de passe" required>
             </div>
 
             <button type="submit">Connexion</button>

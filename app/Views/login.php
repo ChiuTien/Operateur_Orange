@@ -183,8 +183,7 @@
         <form action="login/auth" method="post">
             <div class="form-group">
                 <label for="numero">Numéro de téléphone</label>
-                <input type="text" id="numero" name="numero" placeholder="032 14 123 45" required>
-                <span class="hint">Exemple : 0334621231</span>
+                <input type="text" id="numero" name="numero" value="0334621231" placeholder="032 14 123 45" required>
             </div>
 
             <!-- Champ mot de passe commenté, mais conservé pour la structure -->

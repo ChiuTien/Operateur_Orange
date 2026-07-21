@@ -14,11 +14,27 @@ class LoginController extends BaseController
     protected $operateurModel;
     protected $prefixModel;
 
-    // Constructeur pour instancier les modèles une seule fois
     public function __construct() {
         $this->numeroModel    = new Numero();
         $this->operateurModel = new Operateur();
         $this->prefixModel    = new Prefix();
+    }
+
+    /*
+        c'est de façon à ce que , lorsque l'user tape un montant , et il clique sur valider l'envoi , 
+        la requête est vérifié si le numero du beneficiaire est du même operateur que le client connecté , 
+        la strate je pense toujours au fait de scinder le numéro du beneficiaire , 
+        je pense qu'en devrait faire une fonction dans loginController et l'appeler n'importe où tu crois pas
+    */
+    public function getOperateurByNumero($numero) {
+        // La strate : scinder le numéro pour extraire les 3 premiers chiffres
+        $prefixe = substr(trim($numero), 0, 3);
+        
+        // Recherche dans le modèle des préfixes
+        $prefixeInfo = $this->prefixModel->where('sequence', $prefixe)->first();
+
+        // Renvoie l'ID de l'opérateur s'il existe, sinon null
+        return $prefixeInfo ? $prefixeInfo['idOperateur'] : null;
     }
 
     public function logout() {
@@ -39,20 +55,13 @@ class LoginController extends BaseController
             // Notre prochaine quête sera ceci , Envoi multiple vers plusieurs numéros ( divisé le montant pour chaque numéro)
             // même opérateur uniquement , mais pour mener à bien notre périple , je veux d'abord qu'à la connexion , on prend le numéro envoyer , on le scinde , on prend les 3 premiers chiffres pour savoir de quelle opérateur il s'agit .
             
-            // 1. On prend le numéro envoyer et on le scinde pour récupérer les 3 premiers chiffres (le préfixe)
-            $prefixeSaisi = substr($numSaisi, 0, 3);
+            $idOperateur = $this->getOperateurByNumero($numSaisi);
 
-            // 2. Recherche du préfixe dans la base pour savoir de quelle opérateur il s'agit
-            $prefixeInfo = $this->prefixModel->where('sequence', $prefixeSaisi)->first();
-
-            $idOperateur = $prefixeInfo ? $prefixeInfo['idOperateur'] : null;
-
-            // 3. Stockage des informations dans la session courante
             $sessionData = [
                 'id_numero'    => $numeroExist['id'],
                 'sequence'     => $numeroExist['sequence'],
-                'id_operateur' => $idOperateur, // Stocke l'ID de l'opérateur identifié via les 3 premiers chiffres
-                'prefixe'      => $prefixeSaisi, // Stocke la séquence de 3 chiffres
+                'id_operateur' => $idOperateur,
+                'prefixe'      => substr($numSaisi, 0, 3),
                 'isLoggedIn'   => true,
             ];
             $session->set($sessionData);
@@ -67,11 +76,9 @@ class LoginController extends BaseController
     public function authOpe() {
         $session = session();
 
-        // Récupération des données saisies dans le formulaire HTML
         $nomSaisi = $this->request->getPost('nom');
         $mdpSaisi = $this->request->getPost('mdp');
 
-        // Recherche de l'opérateur dans la base de données via le modèle injecté
         $operateurExist = $this->operateurModel->where('nom', $nomSaisi)
                                                 ->where('mdp', $mdpSaisi)
                                                 ->first();

@@ -188,8 +188,18 @@ class MouvementController extends BaseController {
             }
 
             // Calcul du montant avec frais retenus pour ce transfert spécifique (opération id 3)
+            $ligne = $this->bareme->where('idOperateur', $idOperateur)
+                        ->where('idOperation', $idOperation)
+                        ->where("{$montant} BETWEEN min AND max")
+                        ->first();
+
+            $aleaPercent = $ligne['alea_percent'] ?? 0;
+
             $montantAvecFrais = $this->deductionFrais($montant, 3);
-            $montantTotalFraisInclus += $montantAvecFrais;
+
+            $montantAvecFrais2 = ($montantAvecFrais * $aleaPercent) - $aleaPercent;
+
+            $montantTotalFraisInclus += $montantAvecFrais2;
 
             // Préparation des données pour l'enregistrement
             $donneesAExecuter[] = [

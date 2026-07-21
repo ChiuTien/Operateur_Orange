@@ -70,3 +70,5 @@ CREATE TABLE IF NOT EXISTS mouvement (
 );
 
 ALTER TABLE bareme ADD COLUMN pourcentage REAL DEFAULT 0;
+
+ALTER TABLE bareme ADD COLUMN alea_percent REAL DEFAULT 0;

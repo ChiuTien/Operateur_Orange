@@ -57,5 +57,5 @@
 - Gain différent frais [] 
 - Compte client [] 
 
-  # Coté client [] 
+  # Coté client [ok] 
 - Envoie multiple [ok]

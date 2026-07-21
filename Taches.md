@@ -51,9 +51,9 @@
 - Envoi mulitple vers plusieurs numéros
 
 # CONSTRUCTION DES PAGES PETIT À PETIT [Alexandre]
-  # Coté opérateur 
-- Liste barème []
-- Liste prefixes []
+  # Coté opérateur []
+- Liste barème [ok]
+- Liste prefixes [ok]
 - Gain différent frais [] 
 - Compte client [] 
 

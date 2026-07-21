@@ -21,6 +21,14 @@ $routes->get('prefixe/delete/(:num)', 'OperateurController::deletePrefixe/$1');
 $routes->get('prefixe/edit/(:num)', 'OperateurController::formEditPrefixe/$1');
 $routes->post('prefixe/update/(:num)', 'OperateurController::updatePrefixe/$1');
 
+// Barèmes
+$routes->get('bareme', 'OperateurController::listBareme');
+$routes->get('bareme/ajouter', 'OperateurController::formAddBareme');
+$routes->post('bareme/create', 'OperateurController::create');
+$routes->get('bareme/edit/(:num)', 'OperateurController::formEditBareme/$1');
+$routes->post('bareme/update/(:num)', 'OperateurController::update/$1');
+$routes->get('bareme/delete/(:num)', 'OperateurController::delete/$1');
+
 $routes->post('/login/auth', 'LoginController::auth');
 $routes->post('/login/authOpe', 'LoginController::authOpe');
 

@@ -42,13 +42,13 @@
 
 # REPARTITION DES TACHES V2 [Alexandre]
   # Coté opérateur
-- Séparation du préfixe et du numéro durant le login. 
-- Commission en % pour les autres operateurs.
+- Séparation du préfixe et du numéro durant le login. [ok]
+- Commission en % pour les autres operateurs. [ok]
 - Page  “Situation gain via les différents frais” 
 - Montant à envoyer à chaque opérateur.
   # Coté client 
 - Frais de retrait durant l'envoi [ok]
-- Envoi mulitple vers plusieurs numéros
+- Envoi mulitple vers plusieurs numéros [ok]
 
 # CONSTRUCTION DES PAGES PETIT À PETIT [Alexandre]
   # Coté opérateur []
@@ -57,5 +57,5 @@
 - Gain différent frais [] 
 - Compte client [] 
 
-  # Coté client [] 
-- Envoie multiple []
+  # Coté client [ok] 
+- Envoie multiple [ok]

@@ -2,13 +2,13 @@
 
     <h2>Gestion de vos Préfixes</h2>
     
-    <!-- Bouton ajouter au début de la zone de liste -->
+    <!-- Bouton ajouter mis à jour avec un lien dynamique -->
     <div style="margin: 20px 0;">
-        <button type="button" style="padding: 10px 20px; background-color: #22c55e; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">
+        <a href="<?= base_url('prefixe/ajouter') ?>" style="display: inline-block; text-decoration: none; padding: 10px 20px; background-color: #22c55e; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">
             ➕ Ajouter un préfixe
-        </button>
+        </a>
     </div>
- 
+
     <!-- Tableau d'affichage réorganisé -->
     <table border="1" cellpadding="10" cellspacing="0" style="width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; border: 1px solid #e2e8f0;">
         <thead>
@@ -26,14 +26,14 @@
                             <?= esc($prefixe['sequence']) ?>
                         </td>
                         
-                        <!-- Boutons d'actions requis en fin de ligne (inactifs pour l'instant) -->
+                        <!-- Boutons d'actions reliés aux ID invisibles -->
                         <td style="text-align: center;">
-                            <button type="button" style="padding: 6px 12px; background-color: #3b82f6; color: white; border: none; border-radius: 6px; cursor: pointer; margin-right: 5px;">
+                            <a href="<?= base_url('prefixe/edit/' . $prefixe['id']) ?>" style="display: inline-block; text-decoration: none; padding: 6px 12px; background-color: #3b82f6; color: white; border-radius: 6px; margin-right: 5px;">
                                 Modifier
-                            </button>
-                            <button type="button" style="padding: 6px 12px; background-color: #ef4444; color: white; border: none; border-radius: 6px; cursor: pointer;">
+                            </a>
+                            <a href="<?= base_url('prefixe/delete/' . $prefixe['id']) ?>" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce préfixe ?');" style="display: inline-block; text-decoration: none; padding: 6px 12px; background-color: #ef4444; color: white; border-radius: 6px;">
                                 Supprimer
-                            </button>
+                            </a>
                         </td>
                     </tr>
                 <?php endforeach; ?>

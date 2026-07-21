@@ -83,20 +83,19 @@ class LoginController extends BaseController
                                                 ->where('mdp', $mdpSaisi)
                                                 ->first();
 
-        if ($operateurExist) {
-            
-            $sessionData = [
-                'id_operateur'  => $operateurExist['id'],
-                'nom_operateur' => $operateurExist['nom'],
-                'isOpeLoggedIn' => true,
-            ];
-            
-            $session->set($sessionData);
+        if (!$operateurExist) {
 
-            return redirect()->to('/bareme'); 
-        } else {
             $session->setFlashdata('error', 'Nom ou mot de passe incorrect.');
-            return redirect()->to('/loginOperator');
-        }
+            return redirect()->to('/operator');
+        } 
+
+        $sessionData = [
+            'id_operateur'  => $operateurExist['id'],
+            'nom_operateur' => $operateurExist['nom'],
+            'isOpeLoggedIn' => true,
+        ];
+            
+        $session->set($sessionData);
+        return redirect()->to('/bareme'); 
     }
 }

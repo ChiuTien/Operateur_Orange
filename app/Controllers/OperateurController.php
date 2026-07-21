@@ -100,6 +100,19 @@ class OperateurController extends BaseController {
         GESTION DES PREFIXES
     */
     
+    // Afficher la page avec le formulaire de modification
+    public function formEditPrefixe($id) {
+        $prefixe = $this->prefixe->find($id);
+
+        if (!$prefixe) {
+            return redirect()->to('/prefixe')->with('error', 'Préfixe introuvable.');
+        }
+
+        return view('operator/editPrefixe', [
+            'prefixe' => $prefixe
+        ]);
+    }
+
     // Fonction pour afficher la page du formulaire d'insertion
     public function formAddPrefixe() {
         return view('operator/addPrefixe');

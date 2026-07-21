@@ -121,6 +121,7 @@ class MouvementController extends BaseController {
     }
 
     public function transfert() {
+        
         $session = session();
         $idExpediteur = $session->get('id_numero');
         $idOperateurConnecte = $session->get('id_operateur');
@@ -175,7 +176,7 @@ class MouvementController extends BaseController {
             // Préparation des données pour l'enregistrement
             $donneesAExecuter[] = [
                 'idBeneficiaire'    => $idBeneficiaire,
-                'idOperateurBen'    => $beneficiaireData['idOperateur'],
+                'idOperateurBen'    => $opeBeneficiaire,
                 'montantInitial'    => $montant,
                 'montantAvecFrais' => $montantAvecFrais
             ];

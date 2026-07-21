@@ -68,3 +68,5 @@ CREATE TABLE IF NOT EXISTS mouvement (
     FOREIGN KEY (idOperateur) REFERENCES operateur(id) ON DELETE RESTRICT,
     FOREIGN KEY (idOperation) REFERENCES operation(id) ON DELETE RESTRICT
 );
+
+ALTER TABLE bareme ADD COLUMN pourcentage REAL DEFAULT 0;

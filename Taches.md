@@ -49,3 +49,13 @@
   # Coté client 
 - Frais de retrait durant l'envoi [ok]
 - Envoi mulitple vers plusieurs numéros
+
+# CONSTRUCTION DES PAGES PETIT À PETIT [Alexandre]
+  # Coté opérateur 
+- Liste barème []
+- Liste prefixes []
+- Gain différent frais [] 
+- Compte client [] 
+
+  # Coté client [] 
+- Envoie multiple []

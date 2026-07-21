@@ -1,3 +1,4 @@
+cd ../../../
 # 1. Supprime l'ancienne base obsolète
 rm writable/database.db
 

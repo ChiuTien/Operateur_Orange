@@ -1,4 +1,4 @@
-cd ../../../
+cd ../../../../
 
 rm writable/database.db
 

@@ -250,6 +250,9 @@ class MouvementController extends BaseController {
             'filtreActuel'  => $filtre
         ]);
     }
+    /*
+        SITUTATION GAINS
+    */
     public function situationGainsGlobalises() {
         $gains = $this->mouvement
             ->select("
@@ -389,4 +392,6 @@ class MouvementController extends BaseController {
         }
         return $solde;
     }
+
+    
 }

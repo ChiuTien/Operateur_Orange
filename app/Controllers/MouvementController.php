@@ -63,6 +63,13 @@ class MouvementController extends BaseController {
     // Calcul de la commission en pourcentage
     $fraisPourcentage = $montant * ($pourcentage / 100);
 
+//     // À placer dans deductionFrais() avant le return
+// echo "<pre>";
+// echo "Ligne bareme sélectionnée : "; print_r($ligne);
+// echo "Frais fixe : " . $fraisFixe . "<br>";
+// echo "Frais % : " . $fraisPourcentage . "<br>";
+// echo "</pre>"; die();
+
     // Retourne le montant total avec les frais accumulés
     return $montant + $fraisFixe + $fraisPourcentage;
 }

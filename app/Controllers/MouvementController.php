@@ -282,7 +282,7 @@ class MouvementController extends BaseController {
                 AND bareme.idOperation = mouvement.idOperation 
                 AND mouvement.argent BETWEEN bareme.min AND (bareme.max + bareme.frais)
             ', 'inner')
-            ->whereIn('mouvement.idOperation', [2, 3])
+            ->whereIn('mouvement.idOperation', [1, 2, 3])
             ->groupBy('mouvement.idOperateur')
             ->findAll();
 

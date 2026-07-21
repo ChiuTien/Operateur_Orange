@@ -12,12 +12,14 @@ use App\Models\Numero;
 class MouvementController extends BaseController {
     protected $mouvement;
     protected $bareme;
-    protected $numeroModel; 
+    protected $numeroModel;
+    protected $loginController; 
 
     public function __construct() {
         $this->mouvement = new Mouvement();
         $this->bareme = new Bareme();
         $this->numeroModel = new Numero();
+        $this->loginController = new LoginController();
     }
 
     // --- Sous-Méthodes ---
@@ -119,53 +121,103 @@ class MouvementController extends BaseController {
     }
 
     public function transfert() {
-        $data = $this->getDataDepotRetrait();
-        if (!is_array($data)) {
-            return $data;
-        }
-
-        $idExpediteur = $data['idNum'];
-        $montantInitial = $data['montant'];
         
-        $numSaisi = $this->request->getPost('beneficiaire');
-        $beneficiaireData = $this->numeroModel->findBySequence($numSaisi); 
-        
-        if (!$beneficiaireData) {
-            return redirect()->to('/accueil')->with('error', "Bénéficiaire introuvable.");
+        $session = session();
+        $idExpediteur = $session->get('id_numero');
+        $idOperateurConnecte = $session->get('id_operateur');
+
+        // Récupération des deux tableaux transmis par le formulaire de transfert
+        $beneficiaires = $this->request->getPost('beneficiaires'); // Liste des numéros
+        $montants      = $this->request->getPost('montants');      // Liste des montants correspondants
+
+        if (empty($beneficiaires) || empty($montants)) {
+            return redirect()->to('/accueil')->with('error', 'Veuillez renseigner au moins un bénéficiaire et un montant.');
         }
 
-        $idBeneficiaire = $beneficiaireData['id'];
-        if ($idExpediteur == $idBeneficiaire) {
-            return redirect()->to('/accueil')->with('error', "Vous ne pouvez pas vous envoyer de l'argent à vous-même.");
+        // -------------------------------------------------------------
+        // ÉTAPE 1 : VÉRIFICATIONS ET PRÉ-CALCULS DE SÉCURITÉ
+        // -------------------------------------------------------------
+        $montantTotalFraisInclus = 0;
+        $donneesAExecuter = [];
+
+        foreach ($beneficiaires as $index => $numSaisi) {
+            $numClean = trim($numSaisi);
+            $montant  = floatval($montants[$index]);
+
+            if ($montant <= 0) {
+                return redirect()->to('/accueil')->with('error', "Le montant pour le numéro {$numClean} doit être supérieur à 0.");
+            }
+
+            /*
+                Vérification si le numéro du bénéficiaire est du même opérateur que le client connecté
+                Utilisation de l'attribut de classe $this->loginController (instancié dans __construct)
+            */
+            $opeBeneficiaire = $this->loginController->getOperateurByNumero($numClean);
+
+            if ($opeBeneficiaire === null || $opeBeneficiaire != $idOperateurConnecte) {
+                return redirect()->to('/accueil')->with('error', "Le numéro {$numClean} n'appartient pas à votre opérateur.");
+            }
+
+            // Recherche en BDD pour récupérer les infos du bénéficiaire
+            $beneficiaireData = $this->numeroModel->findBySequence($numClean);
+            if (!$beneficiaireData) {
+                return redirect()->to('/accueil')->with('error', "Bénéficiaire {$numClean} introuvable.");
+            }
+
+            $idBeneficiaire = $beneficiaireData['id'];
+            if ($idExpediteur == $idBeneficiaire) {
+                return redirect()->to('/accueil')->with('error', "Vous ne pouvez pas vous envoyer de l'argent à vous-même.");
+            }
+
+            // Calcul du montant avec frais retenus pour ce transfert spécifique (opération id 3)
+            $montantAvecFrais = $this->deductionFrais($montant, 3);
+            $montantTotalFraisInclus += $montantAvecFrais;
+
+            // Préparation des données pour l'enregistrement
+            $donneesAExecuter[] = [
+                'idBeneficiaire'    => $idBeneficiaire,
+                'idOperateurBen'    => $opeBeneficiaire,
+                'montantInitial'    => $montant,
+                'montantAvecFrais' => $montantAvecFrais
+            ];
         }
 
-        $montantAvecFrais = $this->deductionFrais($montantInitial, 3);
-        $solde = $this->getSolde($idExpediteur);
+        // -------------------------------------------------------------
+        // ÉTAPE 2 : VÉRIFICATION DU SOLDE GLOBAL DE L'EXPÉDITEUR
+        // -------------------------------------------------------------
+        $soldeActuel = $this->getSolde($idExpediteur);
 
-        if ($solde < $montantAvecFrais) {
-            $necessaire = $montantAvecFrais - $solde;
-            return redirect()->to('/accueil')->with('error', "Solde insuffisant. Il vous manque {$necessaire} Ar.");
+        if ($soldeActuel < $montantTotalFraisInclus) {
+            $necessaire = $montantTotalFraisInclus - $soldeActuel;
+            return redirect()->to('/accueil')->with('error', "Solde insuffisant pour effectuer l'ensemble des transferts. Il vous manque {$necessaire} Ar.");
         }
 
-        $donneeExpediteur = [
-            "idN1"        => $idExpediteur,
-            "idN2"        => $idBeneficiaire, 
-            "idOperateur" => session()->get('id_operateur'),
-            "idOperation" => 3, 
-            "argent"      => $montantAvecFrais
-        ];
-        $this->mouvement->save($donneeExpediteur);
+        // -------------------------------------------------------------
+        // ÉTAPE 3 : EXÉCUTION DE TOUS LES TRANSFERTS DANS LA BDD
+        // -------------------------------------------------------------
+        foreach ($donneesAExecuter as $transfert) {
+            // Enregistrement du débit de l'expéditeur
+            $donneeExpediteur = [
+                "idN1"        => $idExpediteur,
+                "idN2"        => $transfert['idBeneficiaire'], 
+                "idOperateur" => $idOperateurConnecte,
+                "idOperation" => 3, 
+                "argent"      => $transfert['montantAvecFrais']
+            ];
+            $this->mouvement->save($donneeExpediteur);
 
-        $donneeBeneficiaire = [
-            "idN1"        => $idBeneficiaire,
-            "idN2"        => $idExpediteur,
-            "idOperateur" => $beneficiaireData['idOperateur'],
-            "idOperation" => 1, 
-            "argent"      => $montantInitial
-        ];
-        $this->mouvement->save($donneeBeneficiaire);
+            // Enregistrement du crédit du bénéficiaire
+            $donneeBeneficiaire = [
+                "idN1"        => $transfert['idBeneficiaire'],
+                "idN2"        => $idExpediteur,
+                "idOperateur" => $transfert['idOperateurBen'],
+                "idOperation" => 1, 
+                "argent"      => $transfert['montantInitial']
+            ];
+            $this->mouvement->save($donneeBeneficiaire);
+        }
 
-        return redirect()->to("/accueil")->with('success', 'Transfert envoyé avec succès !');
+        return redirect()->to("/accueil")->with('success', 'Tous vos transferts ont été envoyés avec succès !');
     }
 
     public function historique() {

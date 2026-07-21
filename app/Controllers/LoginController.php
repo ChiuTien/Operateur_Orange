@@ -6,34 +6,54 @@ use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
 use App\Models\Numero;
 use App\Models\Operateur;
+use App\Models\Prefix;
 
 class LoginController extends BaseController
 {
-    public function logout() {
-        // Initialisation du service de session
-        $session = session();
+    protected $numeroModel;
+    protected $operateurModel;
+    protected $prefixModel;
 
-        // Destruction complète de la session courante
+    // Constructeur pour instancier les modèles une seule fois
+    public function __construct() {
+        $this->numeroModel    = new Numero();
+        $this->operateurModel = new Operateur();
+        $this->prefixModel    = new Prefix();
+    }
+
+    public function logout() {
+        $session = session();
         $session->destroy();
 
-        // Redirection vers la page de connexion avec un message optionnel
         return redirect()->to('/')->with('success', 'Vous avez été déconnecté avec succès.');
     }
 
     public function auth() {
         $session = session();
-        $model = new Numero();
-
         $numSaisi = $this->request->getPost('numero');
 
-        $numeroExist = $model->findBySequence($numSaisi);
+        $numeroExist = $this->numeroModel->findBySequence($numSaisi);
 
         if ($numeroExist) {
             
+            // Notre prochaine quête sera ceci , Envoi multiple vers plusieurs numéros ( divisé le montant pour chaque numéro)
+            // même opérateur uniquement , mais pour mener à bien notre périple , je veux d'abord qu'à la connexion , on prend le numéro envoyer , on le scinde , on prend les 3 premiers chiffres pour savoir de quelle opérateur il s'agit .
+            
+            // 1. On prend le numéro envoyer et on le scinde pour récupérer les 3 premiers chiffres (le préfixe)
+            $prefixeSaisi = substr($numSaisi, 0, 3);
+
+            // 2. Recherche du préfixe dans la base pour savoir de quelle opérateur il s'agit
+            $prefixeInfo = $this->prefixModel->where('sequence', $prefixeSaisi)->first();
+
+            $idOperateur = $prefixeInfo ? $prefixeInfo['idOperateur'] : null;
+
+            // 3. Stockage des informations dans la session courante
             $sessionData = [
-                'id_numero'=> $numeroExist['id'],
-                'sequence'=> $numeroExist['sequence'],
-                'isLoggedIn'=> true,
+                'id_numero'    => $numeroExist['id'],
+                'sequence'     => $numeroExist['sequence'],
+                'id_operateur' => $idOperateur, // Stocke l'ID de l'opérateur identifié via les 3 premiers chiffres
+                'prefixe'      => $prefixeSaisi, // Stocke la séquence de 3 chiffres
+                'isLoggedIn'   => true,
             ];
             $session->set($sessionData);
 
@@ -44,42 +64,32 @@ class LoginController extends BaseController
         }
     }
 
-
     public function authOpe() {
-        // 2. Initialisation de la session et du modèle Operateur
         $session = session();
-        $model = new Operateur();
 
-        // 3. Récupération des données saisies dans le formulaire HTML
+        // Récupération des données saisies dans le formulaire HTML
         $nomSaisi = $this->request->getPost('nom');
         $mdpSaisi = $this->request->getPost('mdp');
 
-        // 4. Recherche de l'opérateur dans la base de données
-        $operateurExist = $model->where('nom', $nomSaisi)
-                                ->where('mdp', $mdpSaisi)
-                                ->first();
+        // Recherche de l'opérateur dans la base de données via le modèle injecté
+        $operateurExist = $this->operateurModel->where('nom', $nomSaisi)
+                                                ->where('mdp', $mdpSaisi)
+                                                ->first();
 
-        // 5. Vérification si l'opérateur existe
         if ($operateurExist) {
             
-            // 6. Préparation des données à sauvegarder en session
             $sessionData = [
-                'id_operateur' => $operateurExist['id'],   // On stocke l'ID de l'opérateur ici
-                'nom_operateur'=> $operateurExist['nom'],  // Optionnel : stocker le nom pour l'affichage
-                'isOpeLoggedIn'=> true,
+                'id_operateur'  => $operateurExist['id'],
+                'nom_operateur' => $operateurExist['nom'],
+                'isOpeLoggedIn' => true,
             ];
             
-            // 7. Enregistrement des données dans la session courante
             $session->set($sessionData);
 
-            // Redirection vers le tableau de bord ou l'adresse souhaitée
             return redirect()->to('/operation'); 
         } else {
-            // 8. Gestion de l'erreur si les identifiants sont incorrects
             $session->setFlashdata('error', 'Nom ou mot de passe incorrect.');
-            return redirect()->to('/loginOperator'); // Remplace par l'URL de ta page de login opérateur
+            return redirect()->to('/loginOperator');
         }
     }
 }
-
-?>

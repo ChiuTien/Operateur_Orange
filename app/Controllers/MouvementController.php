@@ -63,7 +63,7 @@ class MouvementController extends BaseController {
     // Calcul de la commission en pourcentage
     $fraisPourcentage = $montant * ($pourcentage / 100);
 
-//     // À placer dans deductionFrais() avant le return
+    // À placer dans deductionFrais() avant le return
 // echo "<pre>";
 // echo "Ligne bareme sélectionnée : "; print_r($ligne);
 // echo "Frais fixe : " . $fraisFixe . "<br>";
@@ -141,6 +141,7 @@ class MouvementController extends BaseController {
     public function transfert() {
         
         $session = session();
+    $idOperateur = session()->get('id_operateur');
         $idExpediteur = $session->get('id_numero');
         $idOperateurConnecte = $session->get('id_operateur');
 
@@ -189,7 +190,7 @@ class MouvementController extends BaseController {
 
             // Calcul du montant avec frais retenus pour ce transfert spécifique (opération id 3)
             $ligne = $this->bareme->where('idOperateur', $idOperateur)
-                        ->where('idOperation', $idOperation)
+                        ->where('idOperation', 3)
                         ->where("{$montant} BETWEEN min AND max")
                         ->first();
 
@@ -197,7 +198,13 @@ class MouvementController extends BaseController {
 
             $montantAvecFrais = $this->deductionFrais($montant, 3);
 
-            $montantAvecFrais2 = ($montantAvecFrais * $aleaPercent) - $aleaPercent;
+            $montantAvecFrais2 = ($montantAvecFrais * ($aleaPercent/100)) - ($aleaPercent/100);
+
+//             echo "<pre>";
+// echo "Ligne bareme sélectionnée : "; print_r($ligne);
+// echo "Frais fixe : " . $montantAvecFrais. "<br>";
+// echo "Frais % : " . $fraisPourcentage . "<br>";
+// echo "</pre>"; die();
 
             $montantTotalFraisInclus += $montantAvecFrais2;
 

@@ -30,7 +30,7 @@
                             <a href="<?= base_url('bareme/edit/' . $b['id']) ?>" style="display: inline-block; text-decoration: none; padding: 6px 12px; background-color: #3b82f6; color: white; border-radius: 6px; margin-right: 5px;">
                                 Modifier
                             </a>
-                            <a href="<?= base_url('bareme/delete/' . $b['id']) ?>" onclick="return confirm('Voulez-vous vraiment supprimer cette tranche ?');" style="display: inline-block; text-decoration: none; padding: 6px 12px; background-color: #ef4444; color: white; border-radius: 6px;">
+                            <a href="<?= base_url('bareme/delete/' . $b['id']) ?>" style="display: inline-block; text-decoration: none; padding: 6px 12px; background-color: #ef4444; color: white; border-radius: 6px;">
                                 Supprimer
                             </a>
                         </td>

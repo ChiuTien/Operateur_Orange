@@ -8,6 +8,8 @@ use CodeIgniter\HTTP\ResponseInterface;
 use App\Models\Mouvement;
 use App\Models\Bareme;
 use App\Models\Numero; 
+use App\Models\Epargne;
+
 
 class MouvementController extends BaseController {
     protected $mouvement;
@@ -141,7 +143,7 @@ class MouvementController extends BaseController {
     public function transfert() {
         
         $session = session();
-    $idOperateur = session()->get('id_operateur');
+        $idOperateur = session()->get('id_operateur');
         $idExpediteur = $session->get('id_numero');
         $idOperateurConnecte = $session->get('id_operateur');
 
@@ -208,11 +210,22 @@ class MouvementController extends BaseController {
 
             $montantTotalFraisInclus += $montantAvecFrais2;
 
+
+            $epargne = new Epargne();
+
+            $ep = $epargne->where('idN',$idBeneficiaire);
+
+            $montantEpargner = $ep['taux']*$montant/100;
+
+            $epar = ['solde' => $ep['solde']+$montantEpargner];
+
+            $ep->save($epar);
+
             // Préparation des données pour l'enregistrement
             $donneesAExecuter[] = [
                 'idBeneficiaire'    => $idBeneficiaire,
                 'idOperateurBen'    => $opeBeneficiaire,
-                'montantInitial'    => $montant,
+                'montantInitial'    => $montant-$montantEpargner,
                 'montantAvecFrais' => $montantAvecFrais
             ];
         }

@@ -46,3 +46,8 @@ $routes->post('/transfert', 'MouvementController::transfert');
     
     // Historique 
 $routes->post('/historique', 'MouvementController::historique');
+
+//Epargne
+$routes->get('/epargne','EpargneController::index');
+
+$routes->post('/ajout/epargne','EpargneController::ajout');

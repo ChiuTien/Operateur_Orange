@@ -295,6 +295,13 @@
         <span class="montant"><?= $solde ?></span> <span class="devise">MGA</span>
     </div>
 
+    <h3>Gerer epargne</h3>
+    <div class="solde-box">
+        <form action="/epargne" method="get">
+            <button type="submit" class="btn" >Gerer</button>
+        </form>
+    </div>
+
     <!-- Faire un dépôt -->
     <h3>Combien allez-vous verser ?</h3>
     <div class="form-card">

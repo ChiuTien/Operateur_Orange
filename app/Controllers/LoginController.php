@@ -9,6 +9,17 @@ use App\Models\Operateur;
 
 class LoginController extends BaseController
 {
+    public function logout() {
+        // Initialisation du service de session
+        $session = session();
+
+        // Destruction complète de la session courante
+        $session->destroy();
+
+        // Redirection vers la page de connexion avec un message optionnel
+        return redirect()->to('/')->with('success', 'Vous avez été déconnecté avec succès.');
+    }
+
     public function auth() {
         $session = session();
         $model = new Numero();

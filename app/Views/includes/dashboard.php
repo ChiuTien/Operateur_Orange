@@ -54,7 +54,7 @@
         </ul>
 
         <div class="sidebar-footer">
-            <a href="#">
+            <a href="<?= base_url('logout') ?>">
                 <span class="menu-icon">&#8226;</span> Déconnexion
             </a>
         </div>

@@ -12,6 +12,7 @@ $routes->get('/client', 'Home::client');
 $routes->get('/accueil', 'Home::accueil');
 $routes->get('/operator', 'Home::operator');
 $routes->get('/operation', 'Home::listOperation');
+$routes->get('logout', 'LoginController::logout');
 
 // Préfixes 
 $routes->get('/prefixe', 'OperateurController::listPrefixe');

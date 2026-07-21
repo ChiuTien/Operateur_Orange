@@ -20,13 +20,41 @@ class OperateurController extends BaseController {
     /* 
         GESTION DES BAREMES
     */
+    public function listBareme() {
+        $idOperateur = session()->get('id_operateur');
+        
+        if (!$idOperateur) {
+            return redirect()->to('/loginOperator')->with('error', 'Veuillez vous connecter.');
+        }
+
+        $listeBaremes = $this->bareme->where('idOperateur', $idOperateur)
+                                     ->orderBy('min', 'ASC')
+                                     ->findAll();
+
+        return view('operator/listBareme', ['baremes' => $listeBaremes]);
+    }
+
+    public function formAddBareme() {
+        return view('operator/addBareme');
+    }
+
+    public function formEditBareme($id) {
+        $tranche = $this->bareme->find($id);
+
+        if (!$tranche) {
+            return redirect()->to('/bareme')->with('error', 'Tranche introuvable.');
+        }
+
+        return view('operator/editBareme', ['bareme' => $tranche]);
+    }
+
     public function getBaremeData() {
         $donnees = [
             'min'         => $this->request->getPost('min'),
             'max'         => $this->request->getPost('max'),
             'frais'       => $this->request->getPost('frais'),
             'idOperation' => $this->request->getPost('idOperation'),
-            'idOperateur' => $this->request->getPost('idOperateur'),
+            'idOperateur' => session()->get('id_operateur'), // Récupéré de la session
         ];
 
         if (!is_numeric($donnees['min']) || !is_numeric($donnees['max']) || !is_numeric($donnees['frais'])) {
@@ -39,33 +67,15 @@ class OperateurController extends BaseController {
         return $donnees;
     }
 
-    public function getBareme() {
-        $idOperateur = $this->request->getVar('idOperateur');
-        $idOperation = $this->request->getVar('idOperation');
-
-        if (!$idOperateur || !$idOperation) {
-            return $this->response->setJSON([
-                'status'  => 'error',
-                'message' => 'Veuillez fournir idOperateur et idOperation.'
-            ])->setStatusCode(400);
-        }
-
-        $listeBaremes = $this->bareme->where('idOperateur', $idOperateur)
-                                     ->where('idOperation', $idOperation)
-                                     ->orderBy('min', 'ASC')
-                                     ->findAll();
-        return $listeBaremes;
-    }
-
     public function create() {
-        $donnees = $this->getData();
+        $donnees = $this->getBaremeData();
 
         if (!is_array($donnees)) {
             return $donnees;
         }
 
         $this->bareme->save($donnees);
-        return redirect()->back()->with('success', 'Tranche de barème ajoutée avec succès !');
+        return redirect()->to('/bareme')->with('success', 'Tranche de barème ajoutée avec succès !');
     }
 
     public function update($id) {
@@ -74,7 +84,7 @@ class OperateurController extends BaseController {
             return redirect()->back()->with('error', 'Cette tranche de barème n\'existe pas.');
         }
 
-        $donnees = $this->getData();
+        $donnees = $this->getBaremeData();
         if (!is_array($donnees)) {
             return $donnees;
         }
@@ -82,7 +92,7 @@ class OperateurController extends BaseController {
         $donnees['id'] = $id;
 
         $this->bareme->save($donnees);
-        return redirect()->back()->with('success', 'Tranche mise à jour avec succès.');
+        return redirect()->to('/bareme')->with('success', 'Tranche mise à jour avec succès.');
     }
 
     public function delete($id) {
@@ -93,9 +103,8 @@ class OperateurController extends BaseController {
         }
 
         $this->bareme->delete($id);
-        return redirect()->back()->with('success', 'Tranche supprimée avec succès.');
+        return redirect()->to('/bareme')->with('success', 'Tranche supprimée avec succès.');
     }
-
     /* 
         GESTION DES PREFIXES
     */

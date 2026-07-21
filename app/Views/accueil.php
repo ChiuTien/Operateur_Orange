@@ -316,16 +316,65 @@
     </div>
 
     <!-- Faire un transfert -->
-    <h3>Combien allez-vous envoyer ?</h3>
+    <!-- Faire un transfert (Envoi individuel ou multiple avec montants personnalisés) -->
+    <!-- 
+        un montant pour un numéro puis un autre montant pour tel numéro et ainsi de suite 
+        et vérification si le numero du beneficiaire est du même operateur que le client connecté
+    -->
+    <h3>Effectuer un ou plusieurs transferts</h3>
     <div class="form-card">
         <form action="/transfert" method="post">
-            <label for="montant_transfert">Le montant à envoyer</label>
-            <input type="number" id="montant_transfert" name="montant" placeholder="15000" required>
-            <label for="beneficiaire">Le numéro du bénéficiaire</label>
-            <input type="number" id="beneficiaire" name="beneficiaire" placeholder="0320213411" required>
-            <button type="submit" class="btn">Valider l'envoi</button>
+            
+            <div id="transferts-container">
+                <!-- Ligne de transfert par défaut -->
+                <div class="transfert-row" style="display: flex; gap: 10px; margin-bottom: 12px; align-items: center;">
+                    <div style="flex: 1;">
+                        <label>Numéro bénéficiaire</label>
+                        <input type="text" name="beneficiaires[]" placeholder="0320213411" required style="margin-bottom: 0;">
+                    </div>
+                    <div style="flex: 1;">
+                        <label>Montant (Ar)</label>
+                        <input type="number" name="montants[]" placeholder="15000" required style="margin-bottom: 0;">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bouton pour ajouter une autre ligne -->
+            <button type="button" id="add-transfert-btn" class="btn btn-secondary" style="margin-bottom: 1.2rem; font-size: 0.85rem; padding: 0.5rem 1rem;">
+                ➕ Ajouter un autre destinataire
+            </button>
+
+            <div>
+                <button type="submit" class="btn">Valider l'envoi</button>
+            </div>
         </form>
     </div>
+
+    <!-- Script simple pour dupliquer les champs -->
+    <script>
+        document.getElementById('add-transfert-btn').addEventListener('click', function() {
+            const container = document.getElementById('transferts-container');
+            const newRow = document.createElement('div');
+            newRow.className = 'transfert-row';
+            newRow.style = 'display: flex; gap: 10px; margin-bottom: 12px; align-items: center;';
+            
+            newRow.innerHTML = `
+                <div style="flex: 1;">
+                    <input type="text" name="beneficiaires[]" placeholder="0320213422" required style="margin-bottom: 0;">
+                </div>
+                <div style="flex: 1;">
+                    <input type="number" name="montants[]" placeholder="10000" required style="margin-bottom: 0;">
+                </div>
+                <button type="button" class="remove-row" style="background:#ef4444; color:white; border:none; padding:8px 12px; border-radius:8px; cursor:pointer;">❌</button>
+            `;
+
+            newRow.querySelector('.remove-row').addEventListener('click', function() {
+                newRow.remove();
+            });
+
+            container.appendChild(newRow);
+        });
+    </script>
 
     <!-- Voir historique -->
     <h2>Consulter votre historique</h2>

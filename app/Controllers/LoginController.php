@@ -93,7 +93,7 @@ class LoginController extends BaseController
             
             $session->set($sessionData);
 
-            return redirect()->to('/operation'); 
+            return redirect()->to('/bareme'); 
         } else {
             $session->setFlashdata('error', 'Nom ou mot de passe incorrect.');
             return redirect()->to('/loginOperator');

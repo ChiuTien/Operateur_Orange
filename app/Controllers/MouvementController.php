@@ -41,20 +41,31 @@ class MouvementController extends BaseController {
     }
 
     public function deductionFrais($montant, $idOperation) {
-        $idOperateur = session()->get('id_operateur');
-        
-        if (!$idOperateur) {
-            return $montant;
-        }
-
-        $ligne = $this->bareme->where('idOperateur', $idOperateur)
-                             ->where('idOperation', $idOperation)
-                             ->where("{$montant} BETWEEN min AND max")
-                             ->first();
-
-        $frais = $ligne['frais'] ?? 0;        
-        return $montant + $frais;
+    $idOperateur = session()->get('id_operateur');
+    
+    if (!$idOperateur) {
+        return $montant;
     }
+
+    $ligne = $this->bareme->where('idOperateur', $idOperateur)
+                         ->where('idOperation', $idOperation)
+                         ->where("{$montant} BETWEEN min AND max")
+                         ->first();
+
+    if (!$ligne) {
+        return $montant;
+    }
+
+    // Récupération du frais fixe et du pourcentage (par défaut 0 si non présent)
+    $fraisFixe   = floatval($ligne['frais'] ?? 0);
+    $pourcentage = floatval($ligne['pourcentage'] ?? 0);
+
+    // Calcul de la commission en pourcentage
+    $fraisPourcentage = $montant * ($pourcentage / 100);
+
+    // Retourne le montant total avec les frais accumulés
+    return $montant + $fraisFixe + $fraisPourcentage;
+}
     public function getSolde($idNum) {
         $resultat = $this->mouvement->select("
             SUM(

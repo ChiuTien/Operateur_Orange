@@ -100,6 +100,11 @@ class OperateurController extends BaseController {
         GESTION DES PREFIXES
     */
     
+    // Fonction pour afficher la page du formulaire d'insertion
+    public function formAddPrefixe() {
+        return view('operator/addPrefixe');
+    }
+
     // 1. La fonction pour afficher la liste réarrangée
     public function listPrefixe() {
         $idOperateur = session()->get('id_operateur');
